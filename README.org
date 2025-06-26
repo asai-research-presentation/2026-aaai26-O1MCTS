@@ -24,6 +24,11 @@ No, we don't need "Stunning Presentations"
 + Style Customization through Scss (Sass variant)
 + Single-file delivery (inline all js/css and embed images in Base64 encoding)
 
+* Requirements
+
++ Emacs 26 or later
++ lzip, wget
+
 * Usage
 
 + Use this repository as a template

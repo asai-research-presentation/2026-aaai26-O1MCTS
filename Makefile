@@ -2,14 +2,12 @@
 export GH_DOMAIN  = git@github.com
 export GH_USER    = guicho271828
 export LANG       = en_US.utf8
-export EMACS      = emacs
-export EMACSFLAGS =
 
 .PHONY: auto all img scripts clean allclean html index css deploy
 .SECONDLY: *.elc *.org.*
 
 %.org.html: %.org head.org scripts .submodules
-	scripts/org-html.sh $< $@
+	emacs --batch --quick --load scripts/org-html.el $< $@
 
 all: index
 html: img css presen.org.html .submodules
@@ -22,7 +20,6 @@ index: html
 
 .submodules:
 	git submodule update --init --recursive
-	$(MAKE) -C org-mode compile
 	touch .submodules
 
 scripts:
