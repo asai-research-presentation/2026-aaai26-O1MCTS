@@ -3,20 +3,68 @@
 #+include: "head.org"
 
 #+begin_outline-text-1
-#+begin_xlarge
 #+begin_center
-To Start Press "n"
-#+end_center
-#+end_xlarge
+*Masataro Asai*
 
-#+begin_center
-*WARN* Turn off your custom keyboard shortcuts
-#+end_center
+MIT-IBM Watson AI Lab
 
-#+begin_note
-#+begin_alignright
-Made by guicho2.71828 (Masataro Asai)
-#+end_alignright
-#+end_note
+IBM Research
+#+end_center
 #+end_outline-text-1
+
+* Monte Carlo Tree Search
+
+[[png:bilevel/7]]
+
+** Monte Carlo Tree Search
+
+[[png:bilevel/6]]
+
+** Monte Carlo Tree Search
+
+[[png:bilevel/5]]
+
+** Monte Carlo Tree Search
+
+[[png:bilevel/4]]
+
+* When they do good, search spaces are *shallow*
+
+
+#+begin_container-fluid
+#+begin_row-fluid
+#+begin_span6
+
++ Game of Go
+
+  Depth $d < 19^2=391$
+
+#+end_span6
+#+begin_span6
+
++ Tower of Hanoi
+
+  Depth $d = 2^k - 1$ ($k$ disks)
+
+#+end_span6
+#+end_row-fluid
+#+end_container-fluid
+
+
+* Indeed, MCTS gets slower and slower
+
+[[png:bilevel/4]]
+
+** Indeed, MCTS gets slower and slower
+
+[[png:bilevel/3]]
+
+** Indeed, MCTS gets slower and slower
+
+[[png:bilevel/2]]
+
+** Indeed, MCTS gets slower and slower
+
+[[png:bilevel/1]]
+
 
