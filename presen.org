@@ -28,6 +28,7 @@ IBM Research
 
 [[png:bilevel/4]]
 
+
 * When they do good, search spaces are *shallow*
 
 
@@ -35,36 +36,147 @@ IBM Research
 #+begin_row-fluid
 #+begin_span6
 
-+ Game of Go
++
+  #+begin_center
+  Game of Go
+  #+end_center
+
+  [[png:Blank_Go_board]]
 
   Depth $d < 19^2=391$
 
 #+end_span6
 #+begin_span6
 
-+ Tower of Hanoi
++
+  #+begin_center
+  Tower of Hanoi
+  #+end_center
+
+  [[png:Tower_of_Hanoi]]
 
   Depth $d = 2^k - 1$ ($k$ disks)
+
+  *Single Player Planning often requires
+  an /exponential/ depth*
 
 #+end_span6
 #+end_row-fluid
 #+end_container-fluid
 
 
-* Indeed, MCTS gets slower and slower
+* MCTS gets slower and slower
 
 [[png:bilevel/4]]
 
-** Indeed, MCTS gets slower and slower
+** MCTS gets slower and slower
 
 [[png:bilevel/3]]
 
-** Indeed, MCTS gets slower and slower
+** MCTS gets slower and slower
 
 [[png:bilevel/2]]
 
-** Indeed, MCTS gets slower and slower
+** MCTS gets slower and slower
 
 [[png:bilevel/1]]
+
+
+* Theoretical Results
+
+[[png:bilevel/1d]]
+
+** Theoretical Results
+
+[[png:bilevel/1c]]
+
+** Theoretical Results
+
+[[png:bilevel/1b]]
+
+** Theoretical Results
+
+[[png:bilevel/1b]]
+
++ MCTS ::
+  The runtime per loop is $BD = O(\log N)$.
+
++ Bilevel MCTS ::
+  The */amortized/* runtime per loop over $D$ expansions is
+
+  + $O(\log \log N)$ if priority queue $Q$ is a heap
+
+  + $O(1)$ if $Q$ is an array-based priority queue (Dial 1969, Burns 2012)
+
+
+* Evaluation on IPC 2018+2023
+
+#+begin_smaller
+#+begin_container-fluid
+#+begin_row-fluid
+#+begin_span6
++
+  #+begin_center
+  Instances solved in 5 min
+  #+end_center
+
+  |        | <c>  |   <c>   | <c>  |     <c>     |
+  | /      |  <   |         |  >   |     <>      |
+  |        | GBFS | Softmin | MCTS | */Bilevel/* |
+  |--------+------+---------+------+-------------|
+  | cea/18 |  40  |  48.4   | 50.2 |   *53.8*    |
+  | cea/23 |  30  | *34.2*  | 25.8 |    30.8     |
+  | cg/18  |  35  | *59.2*  | 42.4 |    56.2     |
+  | cg/23  |  36  |  39.4   |  25  |   *41.6*    |
+  | ff/18  |  60  |  80.2   | 79.8 |   *87.4*    |
+  | ff/23  |  51  |  55.4   | 23.8 |   *58.2*    |
+  |--------+------+---------+------+-------------|
+  | total  | 252  |  316.8  | 247  |    *328*    |
+
+#+end_span6
+
+#+begin_span6
++
+  #+begin_center
+  IPC Agile scores
+  #+end_center
+
+  |        |  <c>  |   <c>   |  <c>   |     <c>     |
+  | /      |   <   |         |   >    |     <>      |
+  |        | GBFS  | Softmin |  MCTS  | */Bilevel/* |
+  |--------+-------+---------+--------+-------------|
+  | cea/18 | 17.7  |  20.6   | *23.8* |    22.4     |
+  | cea/23 | 23.1  | *24.1*  |  21.5  |    23.8     |
+  | cg/18  | 18.4  | *27.2*  |  19.9  |    26.1     |
+  | cg/23  | 23.6  |  24.8   |  16.4  |   *25.5*    |
+  | ff/18  | 30.4  |  37.7   |  40.4  |   *43.0*    |
+  | ff/23  | 31.0  | *35.5*  |  19.0  |    32.9     |
+  |--------+-------+---------+--------+-------------|
+  | total  | 144.2 |  169.9  | 141.0  |   *173.8*   |
+
+#+end_span6
+
+#+end_row-fluid
+#+end_container-fluid
+#+end_smaller
+
+Softmin: Softmin-type-h (Kuroiwa and Beck 2022)
+
+
+PRS: Deterministic Planning, SO: Heuristic Search,
+ML: Online Learning & Bandits
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
