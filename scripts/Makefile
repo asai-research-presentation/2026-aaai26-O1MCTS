@@ -1,7 +1,7 @@
 
 .PRECIOUS: %.tar
 
-all: elpa/org-9.7.39 elpa/htmlize-20240915.1657
+all: elpa/org-9.7.39 elpa/htmlize-20250724.1703
 
 elpa/%: %.tar
 	emacs --batch --quick --load install-package-file.el $<
