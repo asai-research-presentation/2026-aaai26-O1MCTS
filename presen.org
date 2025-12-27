@@ -1,4 +1,4 @@
-#+title: Yet Another Org-mode Presentation Script
+#+title: Bilevel MCTS for Amortized O(1) Node Selection in Classical Planning
 #+author: Masataro Asai
 #+include: "head.org"
 
