@@ -235,27 +235,36 @@ Bilevel MCTS
 
 [[png:budget/1]]
 
-* *Depth Budget* $b=d$ vs. *Fixed Budget* $b=10^k$
+* _/Fixed Budget $b=10^k$/_ vs. */Depth Budget $b=d$/*
 
 #+begin_center
-Instances solved in 5 min (highlighted top-2)
+Instances solved in 5 min
 #+end_center
 
-|        |  <c>   | <c>  |  <c>   |    <c>    |   <c>   |  <c>  |
-| /      |   <>   |  <   |        |           |         |   >   |
-|        |  b=d   | b=1  |   10   |   10^2    |  10^3   | 10^4  |
-|--------+--------+------+--------+-----------+---------+-------|
-| cea/18 |  53.8  | 50.2 | *57.6* |   51.8    |   49    | 46.6  |
-| cea/23 |  30.8  | 25.8 |  32.4  |  *36.8*   |  33.8   | 33.6  |
-| cg/18  | *56.2* | 42.4 |  51.6  |   55.8    |  48.6   | 48.8  |
-| cg/23  |  41.6  |  25  |  34.2  |   42.2    |  *44*   | 42.2  |
-| ff/18  | *87.4* | 79.8 |  85.8  |   83.4    |  82.2   | 72.8  |
-| ff/23  |  58.2  | 23.8 |  45.4  |   56.8    |  *60*   | 58.6  |
-|--------+--------+------+--------+-----------+---------+-------|
-| total  | *328*  | 247  | ↗307  | ↗326.8↘ | 317.6↘ | 302.6 |
+|        |   <c>   |  <c>   |    <c>    |   <c>    |   <c>    |   <c>   |
+| /      |    <    |        |           |          |    >     |   <>    |
+|        | _/b=1/_ | _/10/_ | _/10^2/_  | _/10^3/_ | _/10^4/_ | */b=d/* |
+|--------+---------+--------+-----------+----------+----------+---------|
+| cea/18 |  50.2   | *57.6* |   51.8    |    49    |   46.6   |  53.8   |
+| cea/23 |  25.8   |  32.4  |  *36.8*   |   33.8   |   33.6   |  30.8   |
+| cg/18  |  42.4   |  51.6  |   55.8    |   48.6   |   48.8   | *56.2*  |
+| cg/23  |   25    |  34.2  |   42.2    |   *44*   |   42.2   |  41.6   |
+| ff/18  |  79.8   |  85.8  |   83.4    |   82.2   |   72.8   | *87.4*  |
+| ff/23  |  23.8   |  45.4  |   56.8    |   *60*   |   58.6   |  58.2   |
+|--------+---------+--------+-----------+----------+----------+---------|
+| total  |   247   | ↗307  | ↗326.8↘ | 317.6↘  |  302.6   |  *328*  |
 
-+ Fixed budget :: _/Too many / too few Best-First Search/_
+#+begin_container-fluid
+#+begin_row-fluid
+#+begin_span6
++ Fixed budget :: _/Too many / few BFS/_
+#+end_span6
+#+begin_span6
 + Dynamic budget :: */Handles various scenarios well/*
+#+end_span6
+#+end_row-fluid
+#+end_container-fluid
+
 
 
 # #+begin_smaller
@@ -307,13 +316,13 @@ Instances solved in 5 min (highlighted top-2)
 # #+end_container-fluid
 # #+end_smaller
 
-* Additional improvement: Tree Collapsing
+* If a large $d$ slows down MCTS, _/what if we reduce $d$?/_ : → _/Tree Collapsing/_
 
-If a large $d$ slows down MCTS, _/what if we reduce $d$?/_
+
 
 [[png:bilevel/2]]
 
-** Additional improvement: Tree Collapsing
+** If a large $d$ slows down MCTS, _/what if we reduce $d$?/_ : → _/Tree Collapsing/_
 
 Hyperparameter: $\theta$
 
@@ -323,7 +332,7 @@ Hyperparameter: $\theta$
 
 →
 
-** Additional improvement: Tree Collapsing
+** If a large $d$ slows down MCTS, _/what if we reduce $d$?/_ : → _/Tree Collapsing/_
 
 Hyperparameter: $\theta$
 
@@ -333,7 +342,7 @@ Hyperparameter: $\theta$
 
 →
 
-** Additional improvement: Tree Collapsing
+** If a large $d$ slows down MCTS, _/what if we reduce $d$?/_ : → _/Tree Collapsing/_
 
 Hyperparameter: $\theta$
 
@@ -343,7 +352,7 @@ Hyperparameter: $\theta$
 
 → _/We also made $\theta$ dynamic ($\theta=d$)/_
 
-** Additional improvement: Tree Collapsing
+** If a large $d$ slows down MCTS, _/what if we reduce $d$?/_ : → _/Tree Collapsing/_
 
 #+begin_center
 Number of instances solved (5 min)
@@ -365,12 +374,12 @@ Number of instances solved (5 min)
 
 * N$\epsilon$bula = Bilevel MCTS + BFWS + LAMA
 
-N$\epsilon$bula : 3 best practices in a single planner
+N$\epsilon$bula : */3 best practices/* in a single planner
 + *Codebase* : Fast Downward
-+ *Base search algorithm* : Bilevel MCTS + dynamic tree collapsing
-+ *Heuristics* : LAMA (2010)'s boosted alt queue + $h^{\mathrm{FF}}$ + $h^{\mathrm{LMcount}}$
++ */Base search algorithm/* : Bilevel MCTS + dynamic tree collapsing
++ */Heuristics/* : LAMA (2010)'s boosted alt queue + $h^{\mathrm{FF}}$ + $h^{\mathrm{LMcount}}$
++ */State-based Exploration/* : Prioritize states with Novelty Metric (2017)
 + *Eager search* : Laziness hurts this MCTS so far
-+ *State-based Exploration* : Prioritize states with Novelty Metric (2017)
 
 ** Results
 
