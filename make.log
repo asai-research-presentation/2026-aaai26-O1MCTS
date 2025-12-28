@@ -1,0 +1,17 @@
+make[1]: Entering directory '/home/masataro/repos/presentations/2026-aaai26-O1MCTS'
+make -C img
+make -C css
+make -C scripts
+make[2]: Entering directory '/home/masataro/repos/presentations/2026-aaai26-O1MCTS/img'
+make[2]: Entering directory '/home/masataro/repos/presentations/2026-aaai26-O1MCTS/css'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/masataro/repos/presentations/2026-aaai26-O1MCTS/css'
+make[2]: Entering directory '/home/masataro/repos/presentations/2026-aaai26-O1MCTS/scripts'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/masataro/repos/presentations/2026-aaai26-O1MCTS/scripts'
+emacs --batch --quick --load scripts/org-html.el presen.org presen.org.html
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/masataro/repos/presentations/2026-aaai26-O1MCTS/img'
+Org mode version 9.7.39 (9.7.39-b7bc0ed @ /home/masataro/repos/presentations/2026-aaai26-O1MCTS/scripts/elpa/org-9.7.39/)
+cp -f presen.org.html index.html
+make[1]: Leaving directory '/home/masataro/repos/presentations/2026-aaai26-O1MCTS'

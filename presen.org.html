@@ -1,0 +1,1794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-12-28 Sun 06:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bilevel MCTS for Amortized O(1) Node Selection in Classical Planning</title>
+<meta name="author" content="Masataro Asai" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/layout.css" />
+<link rel="stylesheet" type="text/css" href="css/default.css" />
+<script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.loupe.min.js"></script>
+<script type="text/javascript" src="js/jgestures/jgestures.min.js"></script>
+<script type="text/javascript" src="js/code.js"></script>
+<script type="text/javascript" src="js/mathjaxconf.js" defer></script>
+<script type="text/javascript" src="MathJax/es5/tex-chtml.js" defer></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500,900">
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Bilevel MCTS for Amortized O(1) Node Selection in Classical Planning</h1>
+<p>
+\[
+\def\ceil#1{\lceil #1 \rceil}
+\def\floor#1{\lfloor #1 \rfloor}
+\def\1{\mathbf{1}}
+\def\0{\mathbf{0}}
+\newcommand{\train}{\mathcal{D}}
+\newcommand{\valid}{\mathcal{D_{\mathrm{valid}}}}
+\newcommand{\test}{\mathcal{D_{\mathrm{test}}}}
+\def\eps{{\epsilon}}
+\def\ralpha{{\text{\alpha}}}
+\def\rbeta{{\text{\beta}}}
+\def\rchi{{\text{\chi}}}
+\def\rdelta{{\text{\delta}}}
+\def\reta{{\text{\eta}}}
+\def\repsilon{{\text{\epsilon}}}
+\def\rfoo{{\text{\foo}}}
+\def\rgamma{{\text{\gamma}}}
+\def\riota{{\text{\iota}}}
+\def\rkappa{{\text{\kappa}}}
+\def\rlambda{{\text{\lambda}}}
+\def\rmu{{\text{\mu}}}
+\def\rnu{{\text{\nu}}}
+\def\romega{{\text{\omega}}}
+\def\rpi{{\text{\pi}}}
+\def\rrho{{\text{\rho}}}
+\def\rsigma{{\text{\sigma}}}
+\def\rtau{{\text{\tau}}}
+\def\rtheta{{\text{\theta}}}
+\def\rupsilon{{\text{\upsilon}}}
+\def\rxi{{\text{\xi}}}
+\def\rzeta{{\text{\zeta}}}
+\def\ra{{\textnormal{a}}}
+\def\rb{{\textnormal{b}}}
+\def\rc{{\textnormal{c}}}
+\def\rd{{\textnormal{d}}}
+\def\re{{\textnormal{e}}}
+\def\rf{{\textnormal{f}}}
+\def\rg{{\textnormal{g}}}
+\def\rh{{\textnormal{h}}}
+\def\ri{{\textnormal{i}}}
+\def\rj{{\textnormal{j}}}
+\def\rk{{\textnormal{k}}}
+\def\rl{{\textnormal{l}}}
+\def\rn{{\textnormal{n}}}
+\def\ro{{\textnormal{o}}}
+\def\rp{{\textnormal{p}}}
+\def\rq{{\textnormal{q}}}
+\def\rr{{\textnormal{r}}}
+\def\rs{{\textnormal{s}}}
+\def\rt{{\textnormal{t}}}
+\def\ru{{\textnormal{u}}}
+\def\rv{{\textnormal{v}}}
+\def\rw{{\textnormal{w}}}
+\def\rx{{\textnormal{x}}}
+\def\ry{{\textnormal{y}}}
+\def\rz{{\textnormal{z}}}
+\def\rA{{\textnormal{A}}}
+\def\rB{{\textnormal{B}}}
+\def\rC{{\textnormal{C}}}
+\def\rD{{\textnormal{D}}}
+\def\rE{{\textnormal{E}}}
+\def\rF{{\textnormal{F}}}
+\def\rG{{\textnormal{G}}}
+\def\rH{{\textnormal{H}}}
+\def\rI{{\textnormal{I}}}
+\def\rJ{{\textnormal{J}}}
+\def\rK{{\textnormal{K}}}
+\def\rL{{\textnormal{L}}}
+\def\rN{{\textnormal{N}}}
+\def\rO{{\textnormal{O}}}
+\def\rP{{\textnormal{P}}}
+\def\rQ{{\textnormal{Q}}}
+\def\rR{{\textnormal{R}}}
+\def\rS{{\textnormal{S}}}
+\def\rT{{\textnormal{T}}}
+\def\rU{{\textnormal{U}}}
+\def\rV{{\textnormal{V}}}
+\def\rW{{\textnormal{W}}}
+\def\rX{{\textnormal{X}}}
+\def\rY{{\textnormal{Y}}}
+\def\rZ{{\textnormal{Z}}}
+\def\rvalpha{{\mathbf{\alpha}}}
+\def\rvbeta{{\mathbf{\beta}}}
+\def\rvchi{{\mathbf{\chi}}}
+\def\rvdelta{{\mathbf{\delta}}}
+\def\rveta{{\mathbf{\eta}}}
+\def\rvepsilon{{\mathbf{\epsilon}}}
+\def\rvfoo{{\mathbf{\foo}}}
+\def\rvgamma{{\mathbf{\gamma}}}
+\def\rviota{{\mathbf{\iota}}}
+\def\rvkappa{{\mathbf{\kappa}}}
+\def\rvlambda{{\mathbf{\lambda}}}
+\def\rvmu{{\mathbf{\mu}}}
+\def\rvnu{{\mathbf{\nu}}}
+\def\rvomega{{\mathbf{\omega}}}
+\def\rvpi{{\mathbf{\pi}}}
+\def\rvrho{{\mathbf{\rho}}}
+\def\rvsigma{{\mathbf{\sigma}}}
+\def\rvtau{{\mathbf{\tau}}}
+\def\rvtheta{{\mathbf{\theta}}}
+\def\rvupsilon{{\mathbf{\upsilon}}}
+\def\rvxi{{\mathbf{\xi}}}
+\def\rvzeta{{\mathbf{\zeta}}}
+\def\rva{{\mathbf{a}}}
+\def\rvb{{\mathbf{b}}}
+\def\rvc{{\mathbf{c}}}
+\def\rvd{{\mathbf{d}}}
+\def\rve{{\mathbf{e}}}
+\def\rvf{{\mathbf{f}}}
+\def\rvg{{\mathbf{g}}}
+\def\rvh{{\mathbf{h}}}
+\def\rvu{{\mathbf{i}}}
+\def\rvj{{\mathbf{j}}}
+\def\rvk{{\mathbf{k}}}
+\def\rvl{{\mathbf{l}}}
+\def\rvm{{\mathbf{m}}}
+\def\rvn{{\mathbf{n}}}
+\def\rvo{{\mathbf{o}}}
+\def\rvp{{\mathbf{p}}}
+\def\rvq{{\mathbf{q}}}
+\def\rvr{{\mathbf{r}}}
+\def\rvs{{\mathbf{s}}}
+\def\rvt{{\mathbf{t}}}
+\def\rvu{{\mathbf{u}}}
+\def\rvv{{\mathbf{v}}}
+\def\rvw{{\mathbf{w}}}
+\def\rvx{{\mathbf{x}}}
+\def\rvy{{\mathbf{y}}}
+\def\rvz{{\mathbf{z}}}
+\def\ervalpha{{\text{\alpha}}}
+\def\ervbeta{{\text{\beta}}}
+\def\ervchi{{\text{\chi}}}
+\def\ervdelta{{\text{\delta}}}
+\def\erveta{{\text{\eta}}}
+\def\ervepsilon{{\text{\epsilon}}}
+\def\ervfoo{{\text{\foo}}}
+\def\ervgamma{{\text{\gamma}}}
+\def\erviota{{\text{\iota}}}
+\def\ervkappa{{\text{\kappa}}}
+\def\ervlambda{{\text{\lambda}}}
+\def\ervmu{{\text{\mu}}}
+\def\ervnu{{\text{\nu}}}
+\def\ervomega{{\text{\omega}}}
+\def\ervpi{{\text{\pi}}}
+\def\ervrho{{\text{\rho}}}
+\def\ervsigma{{\text{\sigma}}}
+\def\ervtau{{\text{\tau}}}
+\def\ervtheta{{\text{\theta}}}
+\def\ervupsilon{{\text{\upsilon}}}
+\def\ervxi{{\text{\xi}}}
+\def\ervzeta{{\text{\zeta}}}
+\def\erva{{\textnormal{a}}}
+\def\ervb{{\textnormal{b}}}
+\def\ervc{{\textnormal{c}}}
+\def\ervd{{\textnormal{d}}}
+\def\erve{{\textnormal{e}}}
+\def\ervf{{\textnormal{f}}}
+\def\ervg{{\textnormal{g}}}
+\def\ervh{{\textnormal{h}}}
+\def\ervi{{\textnormal{i}}}
+\def\ervj{{\textnormal{j}}}
+\def\ervk{{\textnormal{k}}}
+\def\ervl{{\textnormal{l}}}
+\def\ervm{{\textnormal{m}}}
+\def\ervn{{\textnormal{n}}}
+\def\ervo{{\textnormal{o}}}
+\def\ervp{{\textnormal{p}}}
+\def\ervq{{\textnormal{q}}}
+\def\ervr{{\textnormal{r}}}
+\def\ervs{{\textnormal{s}}}
+\def\ervt{{\textnormal{t}}}
+\def\ervu{{\textnormal{u}}}
+\def\ervv{{\textnormal{v}}}
+\def\ervw{{\textnormal{w}}}
+\def\ervx{{\textnormal{x}}}
+\def\ervy{{\textnormal{y}}}
+\def\ervz{{\textnormal{z}}}
+\def\rmA{{\mathbf{A}}}
+\def\rmB{{\mathbf{B}}}
+\def\rmC{{\mathbf{C}}}
+\def\rmD{{\mathbf{D}}}
+\def\rmE{{\mathbf{E}}}
+\def\rmF{{\mathbf{F}}}
+\def\rmG{{\mathbf{G}}}
+\def\rmH{{\mathbf{H}}}
+\def\rmI{{\mathbf{I}}}
+\def\rmJ{{\mathbf{J}}}
+\def\rmK{{\mathbf{K}}}
+\def\rmL{{\mathbf{L}}}
+\def\rmM{{\mathbf{M}}}
+\def\rmN{{\mathbf{N}}}
+\def\rmO{{\mathbf{O}}}
+\def\rmP{{\mathbf{P}}}
+\def\rmQ{{\mathbf{Q}}}
+\def\rmR{{\mathbf{R}}}
+\def\rmS{{\mathbf{S}}}
+\def\rmT{{\mathbf{T}}}
+\def\rmU{{\mathbf{U}}}
+\def\rmV{{\mathbf{V}}}
+\def\rmW{{\mathbf{W}}}
+\def\rmX{{\mathbf{X}}}
+\def\rmY{{\mathbf{Y}}}
+\def\rmZ{{\mathbf{Z}}}
+\def\ermA{{\textnormal{A}}}
+\def\ermB{{\textnormal{B}}}
+\def\ermC{{\textnormal{C}}}
+\def\ermD{{\textnormal{D}}}
+\def\ermE{{\textnormal{E}}}
+\def\ermF{{\textnormal{F}}}
+\def\ermG{{\textnormal{G}}}
+\def\ermH{{\textnormal{H}}}
+\def\ermI{{\textnormal{I}}}
+\def\ermJ{{\textnormal{J}}}
+\def\ermK{{\textnormal{K}}}
+\def\ermL{{\textnormal{L}}}
+\def\ermM{{\textnormal{M}}}
+\def\ermN{{\textnormal{N}}}
+\def\ermO{{\textnormal{O}}}
+\def\ermP{{\textnormal{P}}}
+\def\ermQ{{\textnormal{Q}}}
+\def\ermR{{\textnormal{R}}}
+\def\ermS{{\textnormal{S}}}
+\def\ermT{{\textnormal{T}}}
+\def\ermU{{\textnormal{U}}}
+\def\ermV{{\textnormal{V}}}
+\def\ermW{{\textnormal{W}}}
+\def\ermX{{\textnormal{X}}}
+\def\ermY{{\textnormal{Y}}}
+\def\ermZ{{\textnormal{Z}}}
+\def\vzero{{\mathbf{0}}}
+\def\vone{{\mathbf{1}}}
+\def\valpha{{\mathbf{\alpha}}}
+\def\vbeta{{\mathbf{\beta}}}
+\def\vchi{{\mathbf{\chi}}}
+\def\vdelta{{\mathbf{\delta}}}
+\def\veta{{\mathbf{\eta}}}
+\def\vepsilon{{\mathbf{\epsilon}}}
+\def\vfoo{{\mathbf{\foo}}}
+\def\vgamma{{\mathbf{\gamma}}}
+\def\viota{{\mathbf{\iota}}}
+\def\vkappa{{\mathbf{\kappa}}}
+\def\vlambda{{\mathbf{\lambda}}}
+\def\vmu{{\mathbf{\mu}}}
+\def\vnu{{\mathbf{\nu}}}
+\def\vomega{{\mathbf{\omega}}}
+\def\vpi{{\mathbf{\pi}}}
+\def\vrho{{\mathbf{\rho}}}
+\def\vsigma{{\mathbf{\sigma}}}
+\def\vtau{{\mathbf{\tau}}}
+\def\vtheta{{\mathbf{\theta}}}
+\def\vupsilon{{\mathbf{\upsilon}}}
+\def\vxi{{\mathbf{\xi}}}
+\def\vzeta{{\mathbf{\zeta}}}
+\def\va{{\mathbf{a}}}
+\def\vb{{\mathbf{b}}}
+\def\vc{{\mathbf{c}}}
+\def\vd{{\mathbf{d}}}
+\def\ve{{\mathbf{e}}}
+\def\vf{{\mathbf{f}}}
+\def\vg{{\mathbf{g}}}
+\def\vh{{\mathbf{h}}}
+\def\vi{{\mathbf{i}}}
+\def\vj{{\mathbf{j}}}
+\def\vk{{\mathbf{k}}}
+\def\vl{{\mathbf{l}}}
+\def\vm{{\mathbf{m}}}
+\def\vn{{\mathbf{n}}}
+\def\vo{{\mathbf{o}}}
+\def\vp{{\mathbf{p}}}
+\def\vq{{\mathbf{q}}}
+\def\vr{{\mathbf{r}}}
+\def\vs{{\mathbf{s}}}
+\def\vt{{\mathbf{t}}}
+\def\vu{{\mathbf{u}}}
+\def\vv{{\mathbf{v}}}
+\def\vw{{\mathbf{w}}}
+\def\vx{{\mathbf{x}}}
+\def\vy{{\mathbf{y}}}
+\def\vz{{\mathbf{z}}}
+\def\evalpha{{{\alpha}}}
+\def\evbeta{{{\beta}}}
+\def\evchi{{{\chi}}}
+\def\evdelta{{{\delta}}}
+\def\eveta{{{\eta}}}
+\def\evepsilon{{{\epsilon}}}
+\def\evfoo{{{\foo}}}
+\def\evgamma{{{\gamma}}}
+\def\eviota{{{\iota}}}
+\def\evkappa{{{\kappa}}}
+\def\evlambda{{{\lambda}}}
+\def\evmu{{{\mu}}}
+\def\evnu{{{\nu}}}
+\def\evomega{{{\omega}}}
+\def\evpi{{{\pi}}}
+\def\evrho{{{\rho}}}
+\def\evsigma{{{\sigma}}}
+\def\evtau{{{\tau}}}
+\def\evtheta{{{\theta}}}
+\def\evupsilon{{{\upsilon}}}
+\def\evxi{{{\xi}}}
+\def\evzeta{{{\zeta}}}
+\def\eva{{a}}
+\def\evb{{b}}
+\def\evc{{c}}
+\def\evd{{d}}
+\def\eve{{e}}
+\def\evf{{f}}
+\def\evg{{g}}
+\def\evh{{h}}
+\def\evi{{i}}
+\def\evj{{j}}
+\def\evk{{k}}
+\def\evl{{l}}
+\def\evm{{m}}
+\def\evn{{n}}
+\def\evo{{o}}
+\def\evp{{p}}
+\def\evq{{q}}
+\def\evr{{r}}
+\def\evs{{s}}
+\def\evt{{t}}
+\def\evu{{u}}
+\def\evv{{v}}
+\def\evw{{w}}
+\def\evx{{x}}
+\def\evy{{y}}
+\def\evz{{z}}
+\def\mA{{\mathbf{A}}}
+\def\mB{{\mathbf{B}}}
+\def\mC{{\mathbf{C}}}
+\def\mD{{\mathbf{D}}}
+\def\mE{{\mathbf{E}}}
+\def\mF{{\mathbf{F}}}
+\def\mG{{\mathbf{G}}}
+\def\mH{{\mathbf{H}}}
+\def\mI{{\mathbf{I}}}
+\def\mJ{{\mathbf{J}}}
+\def\mK{{\mathbf{K}}}
+\def\mL{{\mathbf{L}}}
+\def\mM{{\mathbf{M}}}
+\def\mN{{\mathbf{N}}}
+\def\mO{{\mathbf{O}}}
+\def\mP{{\mathbf{P}}}
+\def\mQ{{\mathbf{Q}}}
+\def\mR{{\mathbf{R}}}
+\def\mS{{\mathbf{S}}}
+\def\mT{{\mathbf{T}}}
+\def\mU{{\mathbf{U}}}
+\def\mV{{\mathbf{V}}}
+\def\mW{{\mathbf{W}}}
+\def\mX{{\mathbf{X}}}
+\def\mY{{\mathbf{Y}}}
+\def\mZ{{\mathbf{Z}}}
+\def\mBeta{{\mathbf{\beta}}}
+\def\mPhi{{\mathbf{\Phi}}}
+\def\mLambda{{\mathbf{\Lambda}}}
+\def\mSigma{{\mathbf{\Sigma}}}
+\def\gA{{\mathcal{A}}}
+\def\gB{{\mathcal{B}}}
+\def\gC{{\mathcal{C}}}
+\def\gD{{\mathcal{D}}}
+\def\gE{{\mathcal{E}}}
+\def\gF{{\mathcal{F}}}
+\def\gG{{\mathcal{G}}}
+\def\gH{{\mathcal{H}}}
+\def\gI{{\mathcal{I}}}
+\def\gJ{{\mathcal{J}}}
+\def\gK{{\mathcal{K}}}
+\def\gL{{\mathcal{L}}}
+\def\gM{{\mathcal{M}}}
+\def\gN{{\mathcal{N}}}
+\def\gO{{\mathcal{O}}}
+\def\gP{{\mathcal{P}}}
+\def\gQ{{\mathcal{Q}}}
+\def\gR{{\mathcal{R}}}
+\def\gS{{\mathcal{S}}}
+\def\gT{{\mathcal{T}}}
+\def\gU{{\mathcal{U}}}
+\def\gV{{\mathcal{V}}}
+\def\gW{{\mathcal{W}}}
+\def\gX{{\mathcal{X}}}
+\def\gY{{\mathcal{Y}}}
+\def\gZ{{\mathcal{Z}}}
+\def\sA{{\mathbb{A}}}
+\def\sB{{\mathbb{B}}}
+\def\sC{{\mathbb{C}}}
+\def\sD{{\mathbb{D}}}
+\def\sF{{\mathbb{F}}}
+\def\sG{{\mathbb{G}}}
+\def\sH{{\mathbb{H}}}
+\def\sI{{\mathbb{I}}}
+\def\sJ{{\mathbb{J}}}
+\def\sK{{\mathbb{K}}}
+\def\sL{{\mathbb{L}}}
+\def\sM{{\mathbb{M}}}
+\def\sN{{\mathbb{N}}}
+\def\sO{{\mathbb{O}}}
+\def\sP{{\mathbb{P}}}
+\def\sQ{{\mathbb{Q}}}
+\def\sR{{\mathbb{R}}}
+\def\sS{{\mathbb{S}}}
+\def\sT{{\mathbb{T}}}
+\def\sU{{\mathbb{U}}}
+\def\sV{{\mathbb{V}}}
+\def\sW{{\mathbb{W}}}
+\def\sX{{\mathbb{X}}}
+\def\sY{{\mathbb{Y}}}
+\def\sZ{{\mathbb{Z}}}
+\def\emLambda{{\Lambda}}
+\def\emA{{A}}
+\def\emB{{B}}
+\def\emC{{C}}
+\def\emD{{D}}
+\def\emE{{E}}
+\def\emF{{F}}
+\def\emG{{G}}
+\def\emH{{H}}
+\def\emI{{I}}
+\def\emJ{{J}}
+\def\emK{{K}}
+\def\emL{{L}}
+\def\emM{{M}}
+\def\emN{{N}}
+\def\emO{{O}}
+\def\emP{{P}}
+\def\emQ{{Q}}
+\def\emR{{R}}
+\def\emS{{S}}
+\def\emT{{T}}
+\def\emU{{U}}
+\def\emV{{V}}
+\def\emW{{W}}
+\def\emX{{X}}
+\def\emY{{Y}}
+\def\emZ{{Z}}
+\def\emSigma{{\Sigma}}
+\newcommand{\pdata}{p_{\mathrm{data}}}
+\newcommand{\ptrain}{\hat{p}_{\mathrm{data}}}
+\newcommand{\Ptrain}{\hat{P}_{\mathrm{data}}}
+\newcommand{\pmodel}{p_{\mathrm{model}}}
+\newcommand{\Pmodel}{P_{\mathrm{model}}}
+\newcommand{\ptildemodel}{\tilde{p}_{\mathrm{model}}}
+\newcommand{\pencode}{p_{\mathrm{encoder}}}
+\newcommand{\pdecode}{p_{\mathrm{decoder}}}
+\newcommand{\precons}{p_{\mathrm{reconstruct}}}
+\def\A{{\mathcal{A}}}
+\def\B{{\mathbb{B}}}
+\def\C{{\mathcal{C}}}
+\def\D{{\mathcal{D}}}
+\def\E{{\mathbb{E}}}
+\def\F{{\mathcal{F}}}
+\def\G{{\mathcal{G}}}
+\def\H{{\mathcal{H}}}
+\def\I{{\mathcal{I}}}
+\def\J{{\mathcal{J}}}
+\def\K{{\mathcal{K}}}
+\def\L{{\mathcal{L}}}
+\def\M{{\mathcal{M}}}
+\def\N{{\mathcal{N}}}
+\def\O{{\mathcal{O}}}
+\def\P{{\mathcal{P}}}
+\def\Q{{\mathbb{Q}}}
+\def\R{{\mathbb{R}}}
+\def\S{{\mathcal{S}}}
+\def\T{{\mathcal{T}}}
+\def\U{{\mathcal{U}}}
+\def\V{{\mathcal{V}}}
+\def\W{{\mathcal{W}}}
+\def\X{{\mathcal{X}}}
+\def\Y{{\mathcal{Y}}}
+\def\Z{{\mathbb{Z}}}
+\def\ealpha{{\bar{\alpha}}}
+\def\ebeta{{\bar{\beta}}}
+\def\echi{{\bar{\chi}}}
+\def\edelta{{\bar{\delta}}}
+\def\eeta{{\bar{\eta}}}
+\def\eepsilon{{\bar{\epsilon}}}
+\def\efoo{{\bar{\foo}}}
+\def\egamma{{\bar{\gamma}}}
+\def\eiota{{\bar{\iota}}}
+\def\ekappa{{\bar{\kappa}}}
+\def\elambda{{\bar{\lambda}}}
+\def\emu{{\bar{\mu}}}
+\def\enu{{\bar{\nu}}}
+\def\eomega{{\bar{\omega}}}
+\def\epi{{\bar{\pi}}}
+\def\erho{{\bar{\rho}}}
+\def\esigma{{\bar{\sigma}}}
+\def\etau{{\bar{\tau}}}
+\def\etheta{{\bar{\theta}}}
+\def\eupsilon{{\bar{\upsilon}}}
+\def\exi{{\bar{\xi}}}
+\def\ezeta{{\bar{\zeta}}}
+\def\ea{{\bar{a}}}
+\def\eb{{\bar{b}}}
+\def\ec{{\bar{c}}}
+\def\ed{{\bar{d}}}
+\def\ee{{\bar{e}}}
+\def\ef{{\bar{f}}}
+\def\eg{{\bar{g}}}
+\def\eh{{\bar{h}}}
+\def\ei{{\bar{i}}}
+\def\ej{{\bar{j}}}
+\def\ek{{\bar{k}}}
+\def\el{{\bar{l}}}
+\def\en{{\bar{n}}}
+\def\eo{{\bar{o}}}
+\def\ep{{\bar{p}}}
+\def\eq{{\bar{q}}}
+\def\er{{\bar{r}}}
+\def\es{{\bar{s}}}
+\def\et{{\bar{t}}}
+\def\eu{{\bar{u}}}
+\def\ev{{\bar{v}}}
+\def\ew{{\bar{w}}}
+\def\ey{{\bar{y}}}
+\def\ez{{\bar{z}}}
+\newcommand{\emp}{\tilde{p}}
+\newcommand{\lr}{\alpha}
+\newcommand{\reg}{\lambda}
+\newcommand{\rect}{\mathrm{rectifier}}
+\newcommand{\softmax}{\mathrm{softmax}}
+\newcommand{\sigmoid}{\mathrm{sigmoid}}
+\newcommand{\softplus}{\zeta}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\standarderror}{\mathrm{SE}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\normlzero}{L^0}
+\newcommand{\normlone}{L^1}
+\newcommand{\normltwo}{L^2}
+\newcommand{\normlp}{L^p}
+\newcommand{\normmax}{L^\infty}
+\newcommand{\parents}{Pa} % See usage in notation.tex. Chosen to match Daphne's book.
+\def\Mid{\mathrel{\|}}
+\newcommand{\union}{\cup}
+\newcommand{\intersection}{\cap}
+\newcommand{\brackets}[1]{{\left&lt;#1\right&gt;}}
+\newcommand{\braces}[1]{{\left\{#1\right\}}}
+\newcommand{\parens}[1]{{\left(#1\right)}}
+\newcommand{\bars}[1]{{\left|#1\right|}}
+\newcommand{\then}{\therefore \qquad}
+\newcommand{\from}{\leftarrow}
+\newcommand{\then}{\Rightarrow}
+\newcommand{\when}{\Leftarrow}
+\newcommand{\iff}{\Leftrightarrow}
+\def\qed{\hfill $\Box$}
+\newcommand{\erf}{\mathsf{erf}}
+\newcommand{\cerf}{\mathsf{cerf}}
+\newcommand{\erfi}{\mathsf{erfi}}
+\newcommand{\cerfi}{\mathsf{cerfi}}
+\newcommand{\supp}{\mathsf{supp}} %support
+\newcommand{\elbo}{\mathsf{elbo}}
+\newcommand{\iid}{i.i.d.\xspace}
+\newcommand{\bern}{\text{\small Bernoulli}}
+\newcommand{\cat}{\mathbf{Cat}} %categorical
+\newcommand{\gsdist}{\mathbf{GS}}
+\newcommand{\dir}{\mathbf{Dir}} %dirichlet
+\newcommand{\bin}{\mathbf{Bin}} %binomial
+\newcommand{\invchi}{\mathrm{Inv}\chi^2} %scaled inverse chi^2
+\newcommand{\pareto}{\mathrm{Pa}} %pareto
+\newcommand{\gumbel}{\mathrm{Gumbel}} %pareto
+\newcommand{\gp}{\mathrm{GP}} %generalized pareto
+\newcommand{\lomax}{\mathrm{Lomax}}
+\newcommand{\ipareto}{\mathrm{iPa}}
+\newcommand{\power}{\mathrm{Pow}}
+\newcommand{\logpower}{\mathrm{LogPow}}
+\newcommand{\Exp}{\mathrm{Exp}}
+\newcommand{\EVD}{\mathrm{EVD}}
+\]
+</p>
+
+<div class="outline-text-1" id="org7c2a70f">
+<div class="org-center">
+<p>
+<b>Masataro Asai</b>
+</p>
+
+<p>
+MIT-IBM Watson AI Lab
+</p>
+
+<p>
+IBM Research
+</p>
+</div>
+
+</div>
+<div id="outline-container-orgeb5f384" class="outline-2">
+<h2 id="orgeb5f384"><span class="section-number-2">1.</span> Overview</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li><b>Common Weakness of Monte-Carlo Tree Search</b></li>
+<li>Bilevel MCTS</li>
+<li>Tree Collapsing</li>
+<li>Nebula planner: SoTA results (MCTS+LAMA+BFWS)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8f51ae6" class="outline-2">
+<h2 id="org8f51ae6"><span class="section-number-2">2.</span> Monte Carlo Tree Search</h2>
+<div class="outline-text-2" id="text-2">
+
+<div id="org2dbbf42" class="figure">
+<p><img src="img/bilevel/7.png" alt="7.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-org8d2c9b5" class="outline-3">
+<h3 id="org8d2c9b5"><span class="section-number-3">2.1.</span> Monte Carlo Tree Search</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<div id="org5e5c570" class="figure">
+<p><img src="img/bilevel/6.png" alt="6.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbec37ee" class="outline-3">
+<h3 id="orgbec37ee"><span class="section-number-3">2.2.</span> Monte Carlo Tree Search</h3>
+<div class="outline-text-3" id="text-2-2">
+
+<div id="org630a8b3" class="figure">
+<p><img src="img/bilevel/5.png" alt="5.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf08ce27" class="outline-3">
+<h3 id="orgf08ce27"><span class="section-number-3">2.3.</span> Monte Carlo Tree Search</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<div id="orgfda1302" class="figure">
+<p><img src="img/bilevel/5b.png" alt="5b.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org6b0b51b" class="outline-3">
+<h3 id="org6b0b51b"><span class="section-number-3">2.4.</span> Monte Carlo Tree Search</h3>
+<div class="outline-text-3" id="text-2-4">
+
+<div id="org8c7329f" class="figure">
+<p><img src="img/bilevel/4.png" alt="4.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org32e5f40" class="outline-3">
+<h3 id="org32e5f40"><span class="section-number-3">2.5.</span> Monte Carlo Tree Search</h3>
+<div class="outline-text-3" id="text-2-5">
+
+<div id="org96ad316" class="figure">
+<p><img src="img/bilevel/4b.png" alt="4b.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org1ac59e5" class="outline-2">
+<h2 id="org1ac59e5"><span class="section-number-2">3.</span> <span class="underline"><i>Weakness</i></span> : needs a <b><i>shallow search space</i></b></h2>
+<div class="outline-text-2" id="text-3">
+<div class="container-fluid" id="org5ee31e1">
+<div class="row-fluid" id="orgac14536">
+<div class="span6" id="org6c3c83f">
+<p>
+
+</p>
+
+<ul class="org-ul">
+<li><div class="org-center">
+<p>
+Game of Go
+</p>
+</div>
+
+
+<div id="orgba38d95" class="figure">
+<p><img src="img/Blank_Go_board.png" alt="Blank_Go_board.png" />
+</p>
+</div>
+
+<p>
+Depth $d &lt; 19^2=391$
+</p></li>
+</ul>
+
+</div>
+<div class="span6" id="org4989eeb">
+<p>
+
+</p>
+
+<ul class="org-ul">
+<li><div class="org-center">
+<p>
+Tower of Hanoi
+</p>
+</div>
+
+
+<div id="orgba35f45" class="figure">
+<p><img src="img/Tower_of_Hanoi.png" alt="Tower_of_Hanoi.png" />
+</p>
+</div>
+
+<p>
+Depth $d = 2^k - 1$ ($k$ disks)
+</p></li>
+</ul>
+
+
+
+<p>
+<b>Single Player Planning often requires
+an <i>exponential</i> depth!</b>
+</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<div id="outline-container-orgfd40e23" class="outline-2">
+<h2 id="orgfd40e23"><span class="section-number-2">4.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h2>
+<div class="outline-text-2" id="text-4">
+
+<div id="org79ebb03" class="figure">
+<p><img src="img/bilevel/4b.png" alt="4b.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-org4daba84" class="outline-3">
+<h3 id="org4daba84"><span class="section-number-3">4.1.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<div id="orgdb0a55c" class="figure">
+<p><img src="img/bilevel/3.png" alt="3.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5a2f9ae" class="outline-3">
+<h3 id="org5a2f9ae"><span class="section-number-3">4.2.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h3>
+<div class="outline-text-3" id="text-4-2">
+
+<div id="org3b59aab" class="figure">
+<p><img src="img/bilevel/2.png" alt="2.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5559640" class="outline-2">
+<h2 id="org5559640"><span class="section-number-2">5.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h2>
+<div class="outline-text-2" id="text-5">
+
+<div id="org5b42670" class="figure">
+<p><img src="img/bilevel/2.png" alt="2.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-org06b7b6c" class="outline-3">
+<h3 id="org06b7b6c"><span class="section-number-3">5.1.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h3>
+<div class="outline-text-3" id="text-5-1">
+
+<div id="org3080d2f" class="figure">
+<p><img src="img/bilevel/1x.png" alt="1x.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org3876954" class="outline-3">
+<h3 id="org3876954"><span class="section-number-3">5.2.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h3>
+<div class="outline-text-3" id="text-5-2">
+
+<div id="orgbb18266" class="figure">
+<p><img src="img/bilevel/1.png" alt="1.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5fea5d4" class="outline-2">
+<h2 id="org5fea5d4"><span class="section-number-2">6.</span> Theoretical Results</h2>
+<div class="outline-text-2" id="text-6">
+
+<div id="orgf9c82ef" class="figure">
+<p><img src="img/bilevel/1d.png" alt="1d.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-org91fe8d2" class="outline-3">
+<h3 id="org91fe8d2"><span class="section-number-3">6.1.</span> Theoretical Results</h3>
+<div class="outline-text-3" id="text-6-1">
+
+<div id="orge706609" class="figure">
+<p><img src="img/bilevel/1c.png" alt="1c.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc344228" class="outline-3">
+<h3 id="orgc344228"><span class="section-number-3">6.2.</span> Theoretical Results</h3>
+<div class="outline-text-3" id="text-6-2">
+
+<div id="orgd381639" class="figure">
+<p><img src="img/bilevel/1b.png" alt="1b.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd409e33" class="outline-3">
+<h3 id="orgd409e33"><span class="section-number-3">6.3.</span> Theoretical Results</h3>
+<div class="outline-text-3" id="text-6-3">
+
+<div id="org6710a75" class="figure">
+<p><img src="img/bilevel/1b.png" alt="1b.png" />
+</p>
+</div>
+
+<dl class="org-dl">
+<dt>MCTS <b><i>runtime per node</i></b></dt><dd>$O(BD) = O(\log N)$. $N$: number of nodes</dd>
+
+<dt>Bilevel MCTS <span class="underline"><i>amortized</i></span> <b><i>runtime per node</i></b> over $D$ expansions</dt><dd><p>
+$O(\log \log N)$ if <span class="underline">$Q$ = heap</span>
+</p>
+
+<p>
+$O(1)$ if <span class="underline">$Q$ = array-based priority queue</span> (Dial 1969, Burns 2012)
+</p></dd>
+</dl>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcd85ead" class="outline-2">
+<h2 id="orgcd85ead"><span class="section-number-2">7.</span> Evaluation on IPC 2018+2023</h2>
+<div class="outline-text-2" id="text-7">
+<div class="smaller" id="orga0d9e72">
+<div class="container-fluid" id="orge18ee0a">
+<div class="row-fluid" id="org9706056">
+<div class="span6" id="org0ac2009">
+<ul class="org-ul">
+<li><div class="org-center">
+<p>
+Instances solved in 5 min
+</p>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-center" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+</colgroup>
+
+<colgroup>
+<col  class="org-center" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-center">GBFS</th>
+<th scope="col" class="org-center">Softmin</th>
+<th scope="col" class="org-center">MCTS</th>
+<th scope="col" class="org-center"><b><i>Bilevel</i></b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">cea/18</td>
+<td class="org-center">40</td>
+<td class="org-center">48.4</td>
+<td class="org-center">50.2</td>
+<td class="org-center"><b>53.8</b></td>
+</tr>
+
+<tr>
+<td class="org-left">cea/23</td>
+<td class="org-center">30</td>
+<td class="org-center"><b>34.2</b></td>
+<td class="org-center">25.8</td>
+<td class="org-center">30.8</td>
+</tr>
+
+<tr>
+<td class="org-left">cg/18</td>
+<td class="org-center">35</td>
+<td class="org-center"><b>59.2</b></td>
+<td class="org-center">42.4</td>
+<td class="org-center">56.2</td>
+</tr>
+
+<tr>
+<td class="org-left">cg/23</td>
+<td class="org-center">36</td>
+<td class="org-center">39.4</td>
+<td class="org-center">25</td>
+<td class="org-center"><b>41.6</b></td>
+</tr>
+
+<tr>
+<td class="org-left">ff/18</td>
+<td class="org-center">60</td>
+<td class="org-center">80.2</td>
+<td class="org-center">79.8</td>
+<td class="org-center"><b>87.4</b></td>
+</tr>
+
+<tr>
+<td class="org-left">ff/23</td>
+<td class="org-center">51</td>
+<td class="org-center">55.4</td>
+<td class="org-center">23.8</td>
+<td class="org-center"><b>58.2</b></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">total</td>
+<td class="org-center">252</td>
+<td class="org-center">316.8</td>
+<td class="org-center">247</td>
+<td class="org-center"><b>328</b></td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+
+</div>
+
+<div class="span6" id="org1bb3839">
+<ul class="org-ul">
+<li><div class="org-center">
+<p>
+IPC Agile scores
+</p>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-center" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+</colgroup>
+
+<colgroup>
+<col  class="org-center" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-center">GBFS</th>
+<th scope="col" class="org-center">Softmin</th>
+<th scope="col" class="org-center">MCTS</th>
+<th scope="col" class="org-center"><b><i>Bilevel</i></b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">cea/18</td>
+<td class="org-center">17.7</td>
+<td class="org-center">20.6</td>
+<td class="org-center"><b>23.8</b></td>
+<td class="org-center">22.4</td>
+</tr>
+
+<tr>
+<td class="org-left">cea/23</td>
+<td class="org-center">23.1</td>
+<td class="org-center"><b>24.1</b></td>
+<td class="org-center">21.5</td>
+<td class="org-center">23.8</td>
+</tr>
+
+<tr>
+<td class="org-left">cg/18</td>
+<td class="org-center">18.4</td>
+<td class="org-center"><b>27.2</b></td>
+<td class="org-center">19.9</td>
+<td class="org-center">26.1</td>
+</tr>
+
+<tr>
+<td class="org-left">cg/23</td>
+<td class="org-center">23.6</td>
+<td class="org-center">24.8</td>
+<td class="org-center">16.4</td>
+<td class="org-center"><b>25.5</b></td>
+</tr>
+
+<tr>
+<td class="org-left">ff/18</td>
+<td class="org-center">30.4</td>
+<td class="org-center">37.7</td>
+<td class="org-center">40.4</td>
+<td class="org-center"><b>43.0</b></td>
+</tr>
+
+<tr>
+<td class="org-left">ff/23</td>
+<td class="org-center">31.0</td>
+<td class="org-center"><b>35.5</b></td>
+<td class="org-center">19.0</td>
+<td class="org-center">32.9</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">total</td>
+<td class="org-center">144.2</td>
+<td class="org-center">169.9</td>
+<td class="org-center">141.0</td>
+<td class="org-center"><b>173.8</b></td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<p>
+Softmin: Softmin-type-h (Kuroiwa and Beck 2022)
+</p>
+</div>
+</div>
+<div id="outline-container-orga255382" class="outline-2">
+<h2 id="orga255382"><span class="section-number-2">8.</span> Expansion Speed [Nodes / sec]</h2>
+<div class="outline-text-2" id="text-8">
+<div class="row-fluid" id="org0fc3c96">
+<div class="container-fluid" id="org0a00704">
+<div class="span6" id="orga2f6080">
+<p>
+
+</p>
+
+<div class="org-center">
+<p>
+MCTS
+</p>
+</div>
+
+<ul class="org-ul">
+<li><img src="img/ucb1normal2-0.5-disabled-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend.png" alt="ucb1normal2-0.5-disabled-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend.png" /></li>
+</ul>
+
+</div>
+<div class="span6" id="orgbb1d230">
+<p>
+
+</p>
+
+<div class="org-center">
+<p>
+Bilevel MCTS
+</p>
+</div>
+
+<ul class="org-ul">
+<li><img src="img/ucb1normal2-0.5-depth-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend.png" alt="ucb1normal2-0.5-depth-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend.png" /></li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<div id="outline-container-org13a9bdb" class="outline-2">
+<h2 id="org13a9bdb"><span class="section-number-2">9.</span> Bilevel MCTS uses a <b><i>Dynamic Depth Budget</i></b></h2>
+<div class="outline-text-2" id="text-9">
+
+<div id="org57915a3" class="figure">
+<p><img src="img/budget/2.png" alt="2.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-org596f554" class="outline-3">
+<h3 id="org596f554"><span class="section-number-3">9.1.</span> Bilevel MCTS uses a <b><i>Dynamic Depth Budget</i></b></h3>
+<div class="outline-text-3" id="text-9-1">
+
+<div id="orgdb4ad73" class="figure">
+<p><img src="img/budget/1.png" alt="1.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org18c0f3a" class="outline-2">
+<h2 id="org18c0f3a"><span class="section-number-2">10.</span> <b>Depth Budget</b> $b=d$ vs. <b>Fixed Budget</b> $b=10^k$</h2>
+<div class="outline-text-2" id="text-10">
+<div class="org-center">
+<p>
+Instances solved in 5 min (highlighted top-2)
+</p>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-center" />
+</colgroup>
+
+<colgroup>
+<col  class="org-center" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-center">b=d</th>
+<th scope="col" class="org-center">b=1</th>
+<th scope="col" class="org-center">10</th>
+<th scope="col" class="org-center">10<sup>2</sup></th>
+<th scope="col" class="org-center">10<sup>3</sup></th>
+<th scope="col" class="org-center">10<sup>4</sup></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">cea/18</td>
+<td class="org-center">53.8</td>
+<td class="org-center">50.2</td>
+<td class="org-center"><b>57.6</b></td>
+<td class="org-center">51.8</td>
+<td class="org-center">49</td>
+<td class="org-center">46.6</td>
+</tr>
+
+<tr>
+<td class="org-left">cea/23</td>
+<td class="org-center">30.8</td>
+<td class="org-center">25.8</td>
+<td class="org-center">32.4</td>
+<td class="org-center"><b>36.8</b></td>
+<td class="org-center">33.8</td>
+<td class="org-center">33.6</td>
+</tr>
+
+<tr>
+<td class="org-left">cg/18</td>
+<td class="org-center"><b>56.2</b></td>
+<td class="org-center">42.4</td>
+<td class="org-center">51.6</td>
+<td class="org-center">55.8</td>
+<td class="org-center">48.6</td>
+<td class="org-center">48.8</td>
+</tr>
+
+<tr>
+<td class="org-left">cg/23</td>
+<td class="org-center">41.6</td>
+<td class="org-center">25</td>
+<td class="org-center">34.2</td>
+<td class="org-center">42.2</td>
+<td class="org-center"><b>44</b></td>
+<td class="org-center">42.2</td>
+</tr>
+
+<tr>
+<td class="org-left">ff/18</td>
+<td class="org-center"><b>87.4</b></td>
+<td class="org-center">79.8</td>
+<td class="org-center">85.8</td>
+<td class="org-center">83.4</td>
+<td class="org-center">82.2</td>
+<td class="org-center">72.8</td>
+</tr>
+
+<tr>
+<td class="org-left">ff/23</td>
+<td class="org-center">58.2</td>
+<td class="org-center">23.8</td>
+<td class="org-center">45.4</td>
+<td class="org-center">56.8</td>
+<td class="org-center"><b>60</b></td>
+<td class="org-center">58.6</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">total</td>
+<td class="org-center"><b>328</b></td>
+<td class="org-center">247</td>
+<td class="org-center">↗307</td>
+<td class="org-center">↗326.8↘</td>
+<td class="org-center">317.6↘</td>
+<td class="org-center">302.6</td>
+</tr>
+</tbody>
+</table>
+
+<dl class="org-dl">
+<dt>Fixed budget</dt><dd><span class="underline"><i>Too many / too few Best-First Search</i></span></dd>
+<dt>Dynamic budget</dt><dd><b><i>Handles various scenarios well</i></b></dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-org08fa202" class="outline-2">
+<h2 id="org08fa202"><span class="section-number-2">11.</span> Additional improvement: Tree Collapsing</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+If a large $d$ slows down MCTS, <span class="underline"><i>what if we reduce $d$?</i></span>
+</p>
+
+
+<div id="org8132b4a" class="figure">
+<p><img src="img/bilevel/2.png" alt="2.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-org1ee2cf6" class="outline-3">
+<h3 id="org1ee2cf6"><span class="section-number-3">11.1.</span> Additional improvement: Tree Collapsing</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+Hyperparameter: $\theta$
+</p>
+
+<p>
+<b>When $n$ has too few children &#x2026;</b>
+</p>
+
+
+<div id="orgd85cdac" class="figure">
+<p><img src="img/collapsing1.png" alt="collapsing1.png" />
+</p>
+</div>
+
+<p>
+→
+</p>
+</div>
+</div>
+<div id="outline-container-org90502a9" class="outline-3">
+<h3 id="org90502a9"><span class="section-number-3">11.2.</span> Additional improvement: Tree Collapsing</h3>
+<div class="outline-text-3" id="text-11-2">
+<p>
+Hyperparameter: $\theta$
+</p>
+
+<p>
+<b>When $n$ has too few children &#x2026; <i>adopt them to the grandparent $n'$</i></b>
+</p>
+
+
+<div id="orgff26a4f" class="figure">
+<p><img src="img/collapsing.png" alt="collapsing.png" />
+</p>
+</div>
+
+<p>
+→
+</p>
+</div>
+</div>
+<div id="outline-container-org4fa3d54" class="outline-3">
+<h3 id="org4fa3d54"><span class="section-number-3">11.3.</span> Additional improvement: Tree Collapsing</h3>
+<div class="outline-text-3" id="text-11-3">
+<p>
+Hyperparameter: $\theta$
+</p>
+
+<p>
+<b>When $n$ has too few children &#x2026; <i>adopt them to the grandparent $n'$</i></b>
+</p>
+
+
+<div id="org6cc606b" class="figure">
+<p><img src="img/collapsing.png" alt="collapsing.png" />
+</p>
+</div>
+
+<p>
+→ <span class="underline"><i>We also made $\theta$ dynamic ($\theta=d$)</i></span>
+</p>
+</div>
+</div>
+<div id="outline-container-orgadac693" class="outline-3">
+<h3 id="orgadac693"><span class="section-number-3">11.4.</span> Additional improvement: Tree Collapsing</h3>
+<div class="outline-text-3" id="text-11-4">
+<div class="org-center">
+<p>
+Number of instances solved (5 min)
+</p>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+
+<colgroup>
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-right">no TC</th>
+<th scope="col" class="org-right">$\theta=10$</th>
+<th scope="col" class="org-right">20</th>
+<th scope="col" class="org-right">40</th>
+<th scope="col" class="org-right">80</th>
+<th scope="col" class="org-right">160</th>
+<th scope="col" class="org-right"><b><i>Dynamic</i></b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">cea/18</td>
+<td class="org-right">53.8</td>
+<td class="org-right">56.4</td>
+<td class="org-right"><b>61.4</b></td>
+<td class="org-right">58.6</td>
+<td class="org-right">58.8</td>
+<td class="org-right">57.8</td>
+<td class="org-right">61</td>
+</tr>
+
+<tr>
+<td class="org-left">cea/23</td>
+<td class="org-right">30.8</td>
+<td class="org-right">32</td>
+<td class="org-right">32.2</td>
+<td class="org-right">34.2</td>
+<td class="org-right">33</td>
+<td class="org-right"><b>34.4</b></td>
+<td class="org-right">33.4</td>
+</tr>
+
+<tr>
+<td class="org-left">cg/18</td>
+<td class="org-right">56.2</td>
+<td class="org-right">58.4</td>
+<td class="org-right">59.6</td>
+<td class="org-right"><b>60.2</b></td>
+<td class="org-right">59.8</td>
+<td class="org-right">56.2</td>
+<td class="org-right">57.6</td>
+</tr>
+
+<tr>
+<td class="org-left">cg/23</td>
+<td class="org-right">41.6</td>
+<td class="org-right">41.6</td>
+<td class="org-right">42</td>
+<td class="org-right">45.8</td>
+<td class="org-right">45.4</td>
+<td class="org-right">43.4</td>
+<td class="org-right"><b>46.4</b></td>
+</tr>
+
+<tr>
+<td class="org-left">ff/18</td>
+<td class="org-right">87.4</td>
+<td class="org-right">87.2</td>
+<td class="org-right">88.6</td>
+<td class="org-right">90.4</td>
+<td class="org-right">90.6</td>
+<td class="org-right"><b>91.4</b></td>
+<td class="org-right">90.2</td>
+</tr>
+
+<tr>
+<td class="org-left">ff/23</td>
+<td class="org-right">58.2</td>
+<td class="org-right">56.8</td>
+<td class="org-right">57.8</td>
+<td class="org-right">58</td>
+<td class="org-right">56.2</td>
+<td class="org-right">55</td>
+<td class="org-right"><b>58.4</b></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">total</td>
+<td class="org-right">328</td>
+<td class="org-right">↗332.4</td>
+<td class="org-right">↗341.6</td>
+<td class="org-right">↗ <b>347.2</b></td>
+<td class="org-right">↘343.8</td>
+<td class="org-right">↘338.2</td>
+<td class="org-right"><b>347</b></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<b><i>Dynamic:</i></b> Not always the best ($\theta=40$) but is <b>robust</b>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org02d86bb" class="outline-2">
+<h2 id="org02d86bb"><span class="section-number-2">12.</span> N$&epsilon;$bula = Bilevel MCTS + BFWS + LAMA</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+N$&epsilon;$bula : 3 best practices in a single planner
+</p>
+<ul class="org-ul">
+<li><b>Codebase</b> : Fast Downward</li>
+<li><b>Base search algorithm</b> : Bilevel MCTS + dynamic tree collapsing</li>
+<li><b>Heuristics</b> : LAMA (2010)'s boosted alt queue + $h^{\mathrm{FF}}$ + $h^{\mathrm{LMcount}}$</li>
+<li><b>Eager search</b> : Laziness hurts this MCTS so far</li>
+<li><b>State-based Exploration</b> : Prioritize states with Novelty Metric (2017)</li>
+</ul>
+</div>
+<div id="outline-container-orgc04b629" class="outline-3">
+<h3 id="orgc04b629"><span class="section-number-3">12.1.</span> Results</h3>
+<div class="outline-text-3" id="text-12-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+
+<col  class="org-center" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">IPC18+IPC23 with</th>
+<th scope="col" class="org-center">LAMA</th>
+<th scope="col" class="org-center">SM-Type</th>
+<th scope="col" class="org-center">Dec</th>
+<th scope="col" class="org-center">NO</th>
+<th scope="col" class="org-center">N$&epsilon;$bula</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">5 min and 30 min limits</th>
+<th scope="col" class="org-center">&#xa0;</th>
+<th scope="col" class="org-center">-LAMA</th>
+<th scope="col" class="org-center">Star</th>
+<th scope="col" class="org-center">LAN</th>
+<th scope="col" class="org-center">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">solved instances $(T=300)$</td>
+<td class="org-center">177</td>
+<td class="org-center">186.4</td>
+<td class="org-center">162</td>
+<td class="org-center">177</td>
+<td class="org-center"><b>192.2</b></td>
+</tr>
+
+<tr>
+<td class="org-left">IPC Agile score  $(T=300)$</td>
+<td class="org-center">95.4</td>
+<td class="org-center">99.3</td>
+<td class="org-center">93.7</td>
+<td class="org-center">92.8</td>
+<td class="org-center"><b>99.4</b></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">solved instances $(T=1800)$</td>
+<td class="org-center">204</td>
+<td class="org-center">213.4</td>
+<td class="org-center">180</td>
+<td class="org-center">219</td>
+<td class="org-center"><b>230.6</b></td>
+</tr>
+
+<tr>
+<td class="org-left">IPC Agile score  $(T=1800)$</td>
+<td class="org-center">117.6</td>
+<td class="org-center">123.4</td>
+<td class="org-center">112.0</td>
+<td class="org-center">118.7</td>
+<td class="org-center"><b>126.8</b></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+\[
+\text{IPC Agile score} = \sum_i \min \{1, \log t_i / \log T\}
+\]
+</p>
+</div>
+</div>
+<div id="outline-container-org94e1b2f" class="outline-3">
+<h3 id="org94e1b2f"><span class="section-number-3">12.2.</span> Runtime Histogram</h3>
+<div class="outline-text-3" id="text-12-2">
+
+<div id="org19afcd3" class="figure">
+<p><img src="img/ucb1normal2nlapsb3-0.5-depth--1--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic.png" alt="ucb1normal2nlapsb3-0.5-depth--1--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org600850a" class="outline-2">
+<h2 id="org600850a"><span class="section-number-2">13.</span> Conclusion</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+Recursive selections is a bottleneck in MCTS (causes $O(\log N)$)
+</p>
+<ul class="org-ul">
+<li>→ Large depth $d$ hurts</li>
+<li><p>
+→ Bilevel MCTS: Amortize the bottleneck with a <b>budgeted BFS</b>
+</p>
+
+<p>
+　→ $O(\log \log N)$ or $O(1)$
+</p></li>
+<li>→ Tree Collapsing: Reduce the depth $d$</li>
+<li>N$&epsilon;$bula: SotA by combining MCTS+LAMA+BFWS</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Masataro Asai</p>
+<p class="date">Created: 2025-12-28 Sun 06:08</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
