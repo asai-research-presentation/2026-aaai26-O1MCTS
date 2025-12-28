@@ -3,7 +3,7 @@
 
 all: default.css layout.css projector.css
 
-%.css : %.scss
+%.css : %.scss $(wildcard *.scss)
 	sassc $< $@
 
 clean:
