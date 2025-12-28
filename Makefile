@@ -1,6 +1,6 @@
 
 export GH_DOMAIN  = git@github.com
-export GH_USER    = guicho271828
+export GH_USER    = asai-research-presentation
 export LANG       = en_US.utf8
 
 .PHONY: auto all img scripts clean allclean html index css deploy
