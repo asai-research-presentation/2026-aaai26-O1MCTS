@@ -372,7 +372,7 @@ Number of instances solved (5 min)
 
 */Dynamic:/* Not always the best ($\theta=40$) but is *robust*
 
-* *N /ε/ bula* = Bilevel MCTS + BFWS + LAMA
+* *N /ε/ bula* = Bilevel MCTS + LAMA + BFWS
 
 *N /ε/ bula* : */3/ best practices* in a single planner
 + */Search algorithm/* : Bilevel MCTS + dynamic tree collapsing
