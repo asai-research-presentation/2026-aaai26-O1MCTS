@@ -19493,7 +19493,7 @@
        transform="translate(-3.7325131e-7,-19.999999)">
       <path
          style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle)"
-         d="m 263.73095,74.394324 87.72939,0.222501"
+         d="m 230.38617,74.394324 121.07417,0.222501"
          id="path1"
          sodipodi:nodetypes="cc" />
     </g>
@@ -19518,5 +19518,23 @@
          x="167.5451"
          y="139.39119"
          id="tspan2">when d is small</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:0.882023;stroke:none;stroke-width:3;stroke-dasharray:3, 6;stroke-dashoffset:0"
+       id="rect1-9"
+       width="183.83505"
+       height="23.25358"
+       x="269.35565"
+       y="81.89621" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:24px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke:none;stroke-width:3"
+       x="273.5654"
+       y="100.95766"
+       id="text1-7"><tspan
+         x="273.5654"
+         y="100.95766"
+         style="font-weight:bold;font-size:24px;fill:#ff0000;stroke:none"
+         id="tspan12"
+         sodipodi:role="line">No slowdown</tspan></text>
   </g>
 </svg>

@@ -127,15 +127,14 @@ IBM Research
 
 [[png:bilevel/1b]]
 
-+ MCTS ::
-  The */runtime per loop/* is $O(BD) = O(\log N)$. $N$: number of nodes
++ MCTS */runtime per node/* ::
+  $O(BD) = O(\log N)$. $N$: number of nodes
 
-+ Bilevel MCTS ::
-  The */amortized/* runtime per loop over $D$ expansions is
++ Bilevel MCTS _/amortized/_ */runtime per node/* over $D$ expansions ::
 
-  + $O(\log \log N)$ if _priority queue $Q$ is a heap_
+  $O(\log \log N)$ if _$Q$ = heap_
 
-  + $O(1)$ if $Q$ is an _array-based priority queue_ (Dial 1969, Burns 2012)
+  $O(1)$ if _$Q$ = array-based priority queue_ (Dial 1969, Burns 2012)
 
 
 * Evaluation on IPC 2018+2023
@@ -201,7 +200,7 @@ Softmin: Softmin-type-h (Kuroiwa and Beck 2022)
 MCTS
 #+end_center
 
-+ Large $d$ → _/Slowdown/_
++
 
   [[png:ucb1normal2-0.5-disabled-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend]]
 
@@ -214,9 +213,6 @@ Bilevel MCTS
 #+end_center
 
 +
-  #+begin_center
-  Large $d$ → */Same/*
-  #+end_center
 
   [[png:ucb1normal2-0.5-depth-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend]]
 
@@ -251,9 +247,8 @@ Instances solved in 5 min (highlighted top-2)
 |--------+--------+------+--------+-----------+---------+-------|
 | total  | *328*  | 247  | ↗307  | ↗326.8↘ | 317.6↘ | 302.6 |
 
-+ *The best budget is different in every setting*
-  + _/Too many / too few Best-First Search/_
-+ */Dynamic : Handles various scenarios well/*
++ Fixed budget :: _/Too many / too few Best-First Search/_
++ Dynamic budget :: */Handles various scenarios well/*
 
 
 # #+begin_smaller

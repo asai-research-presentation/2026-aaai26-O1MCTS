@@ -8130,9 +8130,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.6116502"
-     inkscape:cx="440.85249"
-     inkscape:cy="91.831342"
+     inkscape:zoom="2.2792176"
+     inkscape:cx="404.74416"
+     inkscape:cy="80.729458"
      inkscape:window-width="1920"
      inkscape:window-height="997"
      inkscape:window-x="0"
@@ -14302,6 +14302,13 @@
        id="path1637"
        d="M 61.537498,40.160183 H 354.61491"
        style="fill:none;stroke:#000000;stroke-width:1.06667;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       style="fill:#ffffff;fill-opacity:0.882023;stroke:none;stroke-width:3;stroke-dasharray:3, 6;stroke-dashoffset:0"
+       id="rect1"
+       width="121.97171"
+       height="31.589779"
+       x="343.94266"
+       y="47.05283" />
     <path
        style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle)"
        d="m 341.60856,54.211959 -0.2394,51.336531"
@@ -14315,24 +14322,24 @@
     <text
        xml:space="preserve"
        style="font-weight:bold;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#0000ff;stroke:none;stroke-width:3"
-       x="360.64127"
-       y="69.068565"
+       x="343.26776"
+       y="70.930008"
        id="text1"><tspan
          sodipodi:role="line"
          id="tspan1"
-         x="360.64127"
-         y="69.068565"
-         style="font-weight:normal;font-size:21.3333px;fill:#0000ff;stroke:none">Slowdown</tspan></text>
+         x="343.26776"
+         y="70.930008"
+         style="font-weight:bold;font-size:21.3333px;fill:#0000ff;stroke:none">Slowdown</tspan></text>
     <text
        xml:space="preserve"
        style="font-weight:bold;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke:none;stroke-width:3"
-       x="183.60605"
+       x="174.9193"
        y="58.823784"
        id="text1-7"><tspan
          sodipodi:role="line"
          id="tspan1-0"
-         x="183.60605"
+         x="174.9193"
          y="58.823784"
-         style="font-weight:normal;font-size:21.3333px;fill:#000000;stroke:none">Large d</tspan></text>
+         style="font-weight:bold;font-size:21.3333px;fill:#000000;stroke:none">Large d</tspan></text>
   </g>
 </svg>
