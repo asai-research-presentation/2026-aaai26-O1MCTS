@@ -207,7 +207,7 @@ Softmin: Softmin-type-h (Kuroiwa and Beck 2022)
 MCTS
 #+end_center
 
-+ .
++
 
   [[png:ucb1normal2-0.5-disabled-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend]]
 
@@ -219,7 +219,7 @@ Bilevel MCTS
 
 #+end_center
 
-+ .
++
 
   [[png:ucb1normal2-0.5-depth-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend]]
 
