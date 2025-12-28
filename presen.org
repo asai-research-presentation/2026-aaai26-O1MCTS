@@ -9,7 +9,14 @@
 MIT-IBM Watson AI Lab
 
 IBM Research
+
+Use arrow keys (←→) or n/p keys
+
 #+end_center
+
+#+begin_note
+If you found the pdf version of this document, you can find the orignal web presentation in https://asai-research-presentation.github.io/2026-aaai26-O1MCTS/
+#+end_note
 #+end_outline-text-1
 
 # PRS: Deterministic Planning,
@@ -76,7 +83,7 @@ IBM Research
 
   Depth $d = 2^k - 1$ ($k$ disks)
 
-
+  .
 
   *Single Player Planning often requires
   an /exponential/ depth!*
