@@ -418,5 +418,5 @@ Recursive selection is a bottleneck in MCTS (causes $O(\log N)$)
 
   　→ $O(\log \log N)$ or $O(1)$
 + → Tree Collapsing: Reduce the depth $d$
-+ N$\epsilon$bula: SotA by combining MCTS+LAMA+BFWS
++ *N /ε/ bula* : SotA by combining MCTS+LAMA+BFWS
 
