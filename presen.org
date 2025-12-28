@@ -12,6 +12,17 @@ IBM Research
 #+end_center
 #+end_outline-text-1
 
+# PRS: Deterministic Planning,
+# SO: Heuristic Search,
+# ML: Online Learning & Bandits
+
+* Overview
+
++ *Common Weakness of Monte-Carlo Tree Search*
++ Bilevel MCTS
++ Tree Collapsing
++ Nebula planner: SoTA results (MCTS+LAMA+BFWS)
+
 * Monte Carlo Tree Search
 
 [[png:bilevel/7]]
@@ -26,10 +37,18 @@ IBM Research
 
 ** Monte Carlo Tree Search
 
+[[png:bilevel/5b]]
+
+** Monte Carlo Tree Search
+
 [[png:bilevel/4]]
 
+** Monte Carlo Tree Search
 
-* When they do good, search spaces are *shallow*
+[[png:bilevel/4b]]
+
+
+* _/Weakness/_ : needs a */shallow search space/*
 
 
 #+begin_container-fluid
@@ -57,27 +76,37 @@ IBM Research
 
   Depth $d = 2^k - 1$ ($k$ disks)
 
+
+
   *Single Player Planning often requires
-  an /exponential/ depth*
+  an /exponential/ depth!*
 
 #+end_span6
 #+end_row-fluid
 #+end_container-fluid
 
 
-* MCTS gets slower and slower
+* _/Weakness/_ : Larger $d$ → Slower MCTS
 
-[[png:bilevel/4]]
+[[png:bilevel/4b]]
 
-** MCTS gets slower and slower
+** _/Weakness/_ : Larger $d$ → Slower MCTS
 
 [[png:bilevel/3]]
 
-** MCTS gets slower and slower
+** _/Weakness/_ : Larger $d$ → Slower MCTS
 
 [[png:bilevel/2]]
 
-** MCTS gets slower and slower
+* Proposed: _/Bilevel MCTS/_
+
+[[png:bilevel/2]]
+
+** Proposed: _/Bilevel MCTS/_
+
+[[png:bilevel/1x]]
+
+** Proposed: _/Bilevel MCTS/_
 
 [[png:bilevel/1]]
 
@@ -99,14 +128,14 @@ IBM Research
 [[png:bilevel/1b]]
 
 + MCTS ::
-  The runtime per loop is $BD = O(\log N)$.
+  The */runtime per loop/* is $O(BD) = O(\log N)$. $N$: number of nodes
 
 + Bilevel MCTS ::
   The */amortized/* runtime per loop over $D$ expansions is
 
-  + $O(\log \log N)$ if priority queue $Q$ is a heap
+  + $O(\log \log N)$ if _priority queue $Q$ is a heap_
 
-  + $O(1)$ if $Q$ is an array-based priority queue (Dial 1969, Burns 2012)
+  + $O(1)$ if $Q$ is an _array-based priority queue_ (Dial 1969, Burns 2012)
 
 
 * Evaluation on IPC 2018+2023
@@ -162,21 +191,221 @@ IBM Research
 
 Softmin: Softmin-type-h (Kuroiwa and Beck 2022)
 
+* Expansion Speed [Nodes / sec]
 
-PRS: Deterministic Planning, SO: Heuristic Search,
-ML: Online Learning & Bandits
+#+begin_row-fluid
+#+begin_container-fluid
+#+begin_span6
+
+#+begin_center
+MCTS
+#+end_center
+
++ Large $d$ → _/Slowdown/_
+
+  [[png:ucb1normal2-0.5-disabled-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend]]
+
+#+end_span6
+#+begin_span6
+
+#+begin_center
+Bilevel MCTS
+
+#+end_center
+
++
+  #+begin_center
+  Large $d$ → */Same/*
+  #+end_center
+
+  [[png:ucb1normal2-0.5-depth-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend]]
+
+#+end_span6
+#+end_container-fluid
+#+end_row-fluid
+
+* Bilevel MCTS uses a */Dynamic Depth Budget/*
+
+[[png:budget/2]]
+
+** Bilevel MCTS uses a */Dynamic Depth Budget/*
+
+[[png:budget/1]]
+
+* *Depth Budget* $b=d$ vs. *Fixed Budget* $b=10^k$
+
+#+begin_center
+Instances solved in 5 min (highlighted top-2)
+#+end_center
+
+|        |  <c>   | <c>  |  <c>   |    <c>    |   <c>   |  <c>  |
+| /      |   <>   |  <   |        |           |         |   >   |
+|        |  b=d   | b=1  |   10   |   10^2    |  10^3   | 10^4  |
+|--------+--------+------+--------+-----------+---------+-------|
+| cea/18 |  53.8  | 50.2 | *57.6* |   51.8    |   49    | 46.6  |
+| cea/23 |  30.8  | 25.8 |  32.4  |  *36.8*   |  33.8   | 33.6  |
+| cg/18  | *56.2* | 42.4 |  51.6  |   55.8    |  48.6   | 48.8  |
+| cg/23  |  41.6  |  25  |  34.2  |   42.2    |  *44*   | 42.2  |
+| ff/18  | *87.4* | 79.8 |  85.8  |   83.4    |  82.2   | 72.8  |
+| ff/23  |  58.2  | 23.8 |  45.4  |   56.8    |  *60*   | 58.6  |
+|--------+--------+------+--------+-----------+---------+-------|
+| total  | *328*  | 247  | ↗307  | ↗326.8↘ | 317.6↘ | 302.6 |
+
++ *The best budget is different in every setting*
+  + _/Too many / too few Best-First Search/_
++ */Dynamic : Handles various scenarios well/*
 
 
+# #+begin_smaller
+# #+begin_container-fluid
+# #+begin_row-fluid
+# #+begin_span6
+# +
+#   #+begin_center
+#   Instances solved in 5 min
+#   #+end_center
+#
+#   |        | <c>  |  <c>   |        |        |        |        |
+#   | /      |  <>  |   <>   |        |        |        |      > |
+#   |        | b=1  |  b=d   |   b=10 |   10^2 |   10^3 |   10^4 |
+#   |--------+------+--------+--------+--------+--------+--------|
+#   | cea/18 | 50.2 | *53.8* | *57.6* |   51.8 |     49 |   46.6 |
+#   | cea/23 | 25.8 |  30.8  |   32.4 | *36.8* | *33.8* |   33.6 |
+#   | cg/18  | 42.4 | *56.2* |   51.6 | *55.8* |   48.6 |   48.8 |
+#   | cg/23  |  25  |  41.6  |   34.2 | *42.2* |     44 | *42.2* |
+#   | ff/18  | 79.8 | *87.4* | *85.8* |   83.4 |   82.2 |   72.8 |
+#   | ff/23  | 23.8 |  58.2  |   45.4 |   56.8 |   *60* | *58.6* |
+#   |--------+------+--------+--------+--------+--------+--------|
+#   | total  | 247  | *328*  |    307 |  326.8 |  317.6 |  302.6 |
+#
+# #+end_span6
+#
+# #+begin_span6
+# +
+#   #+begin_center
+#   IPC Agile scores
+#   #+end_center
+#
+#   |  <c>   |   <c>   |        |        |       |        |
+#   |   /    |   <>    |        |        |       |     >  |
+#   |  b=1   |   b=d   |   b=10 |   10^2 |  10^3 |   10^4 |
+#   |--------+---------+--------+--------+-------+--------|
+#   | *23.8* |  22.4   | *23.1* |   22.1 |  20.8 |   18.8 |
+#   |  21.5  |  23.8   | *25.0* | *26.3* |  24.8 |   23.7 |
+#   |  19.9  | *26.1*  |   23.9 | *25.1* |  23.3 |   21.8 |
+#   |  16.4  | *25.5*  |   22.0 |   24.4 |  24.0 | *24.6* |
+#   |  40.4  |  43.0   | *44.3* | *43.8* |  39.5 |   35.6 |
+#   |  19.0  |  32.9   |   27.3 | *34.0* |  32.7 | *33.4* |
+#   |--------+---------+--------+--------+-------+--------|
+#   | 141.0  | *173.8* |  165.6 |  175.7 | 165.2 |  158.1 |
+#
+# #+end_span6
+#
+# #+end_row-fluid
+# #+end_container-fluid
+# #+end_smaller
 
+* Additional improvement: Tree Collapsing
 
+If a large $d$ slows down MCTS, _/what if we reduce $d$?/_
 
+[[png:bilevel/2]]
 
+** Additional improvement: Tree Collapsing
 
+Hyperparameter: $\theta$
 
+*When $n$ has too few children ...*
 
+[[png:collapsing1]]
 
+→
 
+** Additional improvement: Tree Collapsing
 
+Hyperparameter: $\theta$
 
+*When $n$ has too few children ... /adopt them to the grandparent $n'$/*
 
+[[png:collapsing]]
+
+→
+
+** Additional improvement: Tree Collapsing
+
+Hyperparameter: $\theta$
+
+*When $n$ has too few children ... /adopt them to the grandparent $n'$/*
+
+[[png:collapsing]]
+
+→ _/We also made $\theta$ dynamic ($\theta=d$)/_
+
+** Additional improvement: Tree Collapsing
+
+#+begin_center
+Number of instances solved (5 min)
+#+end_center
+
+| /      |     < |             |         |            |         |       > |             |
+|        | no TC | $\theta=10$ |      20 |         40 |      80 |     160 | */Dynamic/* |
+|--------+-------+-------------+---------+------------+---------+---------+-------------|
+| cea/18 |  53.8 |        56.4 |  *61.4* |       58.6 |    58.8 |    57.8 |          61 |
+| cea/23 |  30.8 |          32 |    32.2 |       34.2 |      33 |  *34.4* |        33.4 |
+| cg/18  |  56.2 |        58.4 |    59.6 |     *60.2* |    59.8 |    56.2 |        57.6 |
+| cg/23  |  41.6 |        41.6 |      42 |       45.8 |    45.4 |    43.4 |      *46.4* |
+| ff/18  |  87.4 |        87.2 |    88.6 |       90.4 |    90.6 |  *91.4* |        90.2 |
+| ff/23  |  58.2 |        56.8 |    57.8 |         58 |    56.2 |      55 |      *58.4* |
+|--------+-------+-------------+---------+------------+---------+---------+-------------|
+| total  |   328 |     ↗332.4 | ↗341.6 | ↗ *347.2* | ↘343.8 | ↘338.2 |       *347* |
+
+*/Dynamic:/* Not always the best ($\theta=40$) but is *robust*
+
+* N$\epsilon$bula = Bilevel MCTS + BFWS + LAMA
+
+N$\epsilon$bula : 3 best practices in a single planner
++ *Codebase* : Fast Downward
++ *Base search algorithm* : Bilevel MCTS + dynamic tree collapsing
++ *Heuristics* : LAMA (2010)'s boosted alt queue + $h^{\mathrm{FF}}$ + $h^{\mathrm{LMcount}}$
++ *Eager search* : Laziness hurts this MCTS so far
++ *State-based Exploration* : Prioritize states with Novelty Metric (2017)
+
+** Results
+
+|                             |  <c>  |   <c>   |  <c>  |  <c>  |       <c>       |
+| IPC18+IPC23 with            | LAMA  | SM-Type |  Dec  |  NO   | N$\epsilon$bula |
+| 5 min and 30 min limits     |       |  -LAMA  | Star  |  LAN  |                 |
+|-----------------------------+-------+---------+-------+-------+-----------------|
+| solved instances $(T=300)$  |  177  |  186.4  |  162  |  177  |     *192.2*     |
+| IPC Agile score  $(T=300)$  | 95.4  |  99.3   | 93.7  | 92.8  |     *99.4*      |
+|-----------------------------+-------+---------+-------+-------+-----------------|
+| solved instances $(T=1800)$ |  204  |  213.4  |  180  |  219  |     *230.6*     |
+| IPC Agile score  $(T=1800)$ | 117.6 |  123.4  | 112.0 | 118.7 |     *126.8*     |
+
+# |                             |  LAMA | SM-Type |   Dec |    NO |  LAMA |       |       |       | N$\epsilon$bula |
+# |                             |       |   -LAMA |  Star |   LAN | eager |       |       |       |                 |
+# |-----------------------------+-------+---------+-------+-------+-------+-------+-------+-------+-----------------|
+# | solved instances ($T=300$)  |   177 |   186.4 |   162 |   177 |   159 |   172 | 167.4 | 156.2 |           192.2 |
+# | IPC Agile score  ($T=300$)  |  95.4 |    99.3 |  93.7 |  92.8 |  85.4 |  85.2 |  86.8 |  79.1 |            99.4 |
+# |-----------------------------+-------+---------+-------+-------+-------+-------+-------+-------+-----------------|
+# | solved instances ($T=1800$) |   204 |   213.4 |   180 |   219 |   186 |   226 | 207.2 |   185 |           230.6 |
+# | IPC Agile score  ($T=1800$) | 117.6 |   123.4 | 112.0 | 118.7 | 107.1 | 112.8 | 111.8 | 101.0 |           126.8 |
+
+\[
+\text{IPC Agile score} = \sum_i \min \{1, \log t_i / \log T\}
+\]
+
+** Runtime Histogram
+
+[[png:ucb1normal2nlapsb3-0.5-depth--1--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic]]
+
+* Conclusion
+
+Recursive selections is a bottleneck in MCTS (causes $O(\log N)$)
++ → Large depth $d$ hurts
++ → Bilevel MCTS: Amortize the bottleneck with a *budgeted BFS*
+
+  　→ $O(\log \log N)$ or $O(1)$
++ → Tree Collapsing: Reduce the depth $d$
++ N$\epsilon$bula: SotA by combining MCTS+LAMA+BFWS
 

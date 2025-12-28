@@ -11402,6 +11402,25 @@
          transform="matrix(1.3333333,0,0,-1.3333333,0,266.73767)"
          id="path2260" />
     </clipPath>
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="namedview1"
@@ -11412,9 +11431,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.6116502"
-     inkscape:cx="262.15366"
-     inkscape:cy="178.07835"
+     inkscape:zoom="2.2792176"
+     inkscape:cx="286.28245"
+     inkscape:cy="114.07423"
      inkscape:window-width="1920"
      inkscape:window-height="997"
      inkscape:window-x="0"
@@ -19469,5 +19488,35 @@
          x="386.29178"
          dx="0 0 0 -0.20320624"
          y="247.5504">termes</tspan></text>
+    <g
+       id="g1-5"
+       transform="translate(-3.7325131e-7,-19.999999)">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle)"
+         d="m 263.73095,74.394324 87.72939,0.222501"
+         id="path1"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <rect
+       style="fill:#ffffff;fill-opacity:0.8820225;stroke:#000000;stroke-width:3;stroke-dasharray:3, 6;stroke-dashoffset:0"
+       id="rect1"
+       width="164.0914"
+       height="123.28791"
+       x="86.001137"
+       y="62.18531" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:16px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3;stroke-dasharray:3, 6;stroke-dashoffset:0"
+       x="167.5451"
+       y="117.46743"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="167.5451"
+         y="117.46743">Effect is minor</tspan><tspan
+         sodipodi:role="line"
+         x="167.5451"
+         y="139.39119"
+         id="tspan2">when d is small</tspan></text>
   </g>
 </svg>

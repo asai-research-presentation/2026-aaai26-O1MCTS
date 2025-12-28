@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.39714113"
-     inkscape:cx="394.06646"
-     inkscape:cy="485.97334"
+     inkscape:zoom="1.0481524"
+     inkscape:cx="925.915"
+     inkscape:cy="359.68053"
      inkscape:window-width="1920"
      inkscape:window-height="997"
      inkscape:window-x="0"
@@ -578,14 +578,14 @@
        id="g68">
       <path
          style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker14)"
-         d="m 251.31675,4.6656896 c 0,0 18.57308,-0.169705 18.57308,13.7461044 0,13.491549 -18.63123,13.406696 -18.63123,13.406696 m 0,0 H 56.060923"
+         d="M 251.2586,31.81849 H 56.060923"
          id="path13"
-         sodipodi:nodetypes="csccc" />
+         sodipodi:nodetypes="cc" />
       <path
          style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker14-7)"
-         d="m 51.093553,31.845385 c 0,0 -18.57308,0.169705 -18.57308,-13.746105 0,-13.4915484 18.63123,-13.4066954 18.63123,-13.4066954 m 0,0 H 246.34938"
+         d="M 51.151703,4.6925846 H 246.34938"
          id="path13-6"
-         sodipodi:nodetypes="csccc" />
+         sodipodi:nodetypes="cc" />
       <text
          xml:space="preserve"
          style="font-size:11.2889px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
@@ -680,5 +680,84 @@
        d="m 240.69434,59.75748 h 27.46508"
        id="use68"
        sodipodi:nodetypes="cc" />
+    <g
+       id="layer1-5">
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:8.46667px;line-height:1.5;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.875011;fill:#000000;stroke-width:3"
+         x="325.13501"
+         y="50.351093"
+         id="text1"><tspan
+           sodipodi:role="line"
+           id="tspan1"
+           style="font-weight:normal;line-height:1.5;stroke-width:3"
+           x="325.13501"
+           y="50.351093">f(s<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan4">1</tspan>) = 0.7</tspan><tspan
+           sodipodi:role="line"
+           style="font-weight:normal;line-height:1.5;stroke-width:3"
+           x="325.13501"
+           y="63.051098"
+           id="tspan2">f(s<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan5">2</tspan>) = 0.1</tspan><tspan
+           sodipodi:role="line"
+           style="font-weight:normal;line-height:1.5;stroke-width:3"
+           x="325.13501"
+           y="75.751106"
+           id="tspan3">f(s<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan6">3</tspan>) = 0.6</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:8.46667px;line-height:1.4;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.875011;fill:#000000;stroke-width:3"
+         x="312.17654"
+         y="49.871357"
+         id="text1-3"><tspan
+           sodipodi:role="line"
+           id="tspan1-5"
+           style="font-weight:normal;line-height:1.4;stroke-width:3"
+           x="312.17654"
+           y="49.871357">s<tspan
+   style="font-size:65%;line-height:1.4;baseline-shift:sub"
+   id="tspan4-6">1</tspan></tspan><tspan
+           sodipodi:role="line"
+           style="font-weight:normal;line-height:1.4;stroke-width:3"
+           x="312.17654"
+           y="61.724693"
+           id="tspan2-2">s<tspan
+   style="font-size:65%;line-height:1.4;baseline-shift:sub"
+   id="tspan5-9">2</tspan></tspan><tspan
+           sodipodi:role="line"
+           style="font-weight:normal;line-height:1.4;stroke-width:3"
+           x="312.17654"
+           y="73.578033"
+           id="tspan3-1">s<tspan
+   style="font-size:65%;line-height:1.4;baseline-shift:sub"
+   id="tspan6-2">3</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-weight:bold;font-size:8.46667px;line-height:1.4;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.875011;fill:#000000;stroke-width:3"
+         x="367.1214"
+         y="50.361397"
+         id="text8"><tspan
+           sodipodi:role="line"
+           id="tspan8"
+           style="font-weight:normal;stroke-width:3"
+           x="367.1214"
+           y="50.361397">Evaluations</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:8.46667px;line-height:1.4;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.875011;fill:#000000;stroke-width:3"
+       x="240.73473"
+       y="43.688457"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="stroke-width:3"
+         x="240.73473"
+         y="43.688457">← avg[f] = 0.46</tspan></text>
   </g>
 </svg>

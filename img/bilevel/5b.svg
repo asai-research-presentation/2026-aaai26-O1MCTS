@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
-   sodipodi:docname="5.svg"
+   sodipodi:docname="5b.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.56164237"
-     inkscape:cx="483.4037"
-     inkscape:cy="336.51307"
+     inkscape:zoom="0.79428226"
+     inkscape:cx="1279.7718"
+     inkscape:cy="469.60636"
      inkscape:window-width="1920"
      inkscape:window-height="997"
      inkscape:window-x="0"
@@ -641,5 +641,81 @@
        d="m 240.69434,59.75748 h 27.46508"
        id="use68"
        sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:8.46667px;line-height:1.5;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.875011;fill:#000000;stroke-width:3"
+       x="325.13501"
+       y="50.351093"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-weight:normal;line-height:1.5;stroke-width:3"
+         x="325.13501"
+         y="50.351093">f(s<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan4">1</tspan>) = 0.7</tspan><tspan
+         sodipodi:role="line"
+         style="font-weight:normal;line-height:1.5;stroke-width:3"
+         x="325.13501"
+         y="63.051098"
+         id="tspan2">f(s<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan5">2</tspan>) = 0.1</tspan><tspan
+         sodipodi:role="line"
+         style="font-weight:normal;line-height:1.5;stroke-width:3"
+         x="325.13501"
+         y="75.751106"
+         id="tspan3">f(s<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan6">3</tspan>) = 0.6</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:8.46667px;line-height:1.4;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.875011;fill:#000000;stroke-width:3"
+       x="312.17654"
+       y="49.871357"
+       id="text1-3"><tspan
+         sodipodi:role="line"
+         id="tspan1-5"
+         style="font-weight:normal;stroke-width:3;line-height:1.4"
+         x="312.17654"
+         y="49.871357">s<tspan
+   style="font-size:65%;baseline-shift:sub;line-height:1.4"
+   id="tspan4-6">1</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-weight:normal;stroke-width:3;line-height:1.4"
+         x="312.17654"
+         y="61.724693"
+         id="tspan2-2">s<tspan
+   style="font-size:65%;baseline-shift:sub;line-height:1.4"
+   id="tspan5-9">2</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-weight:normal;stroke-width:3;line-height:1.4"
+         x="312.17654"
+         y="73.578033"
+         id="tspan3-1">s<tspan
+   style="font-size:65%;baseline-shift:sub;line-height:1.4"
+   id="tspan6-2">3</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:8.46667px;line-height:1.5;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.875011;fill:#000000;stroke-width:3"
+       x="313.82892"
+       y="50.939957"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="stroke-width:3"
+         x="313.82892"
+         y="50.939957" /></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:8.46667px;line-height:1.4;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:0.875011;fill:#000000;stroke-width:3"
+       x="367.1214"
+       y="50.361397"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         style="font-weight:normal;stroke-width:3"
+         x="367.1214"
+         y="50.361397">Evaluations</tspan></text>
   </g>
 </svg>

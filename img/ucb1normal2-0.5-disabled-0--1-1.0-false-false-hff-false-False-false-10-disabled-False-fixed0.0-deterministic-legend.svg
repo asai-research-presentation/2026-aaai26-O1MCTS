@@ -4,9 +4,9 @@
 <svg
    version="1.1"
    id="svg1"
-   width="353.57675"
+   width="462.84317"
    height="240.64578"
-   viewBox="0 0 353.57675 240.64578"
+   viewBox="0 0 462.84317 240.64578"
    sodipodi:docname="ucb1normal2-0.5-disabled-0--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic-legend.svg"
    inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -15,6 +15,25 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs1">
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7" />
+    </marker>
     <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath90">
@@ -8082,6 +8101,25 @@
          transform="matrix(1.3333333,0,0,-1.3333333,0,266.73767)"
          id="path1633" />
     </clipPath>
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle-7"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7-5" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="namedview1"
@@ -8092,9 +8130,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.1396088"
-     inkscape:cx="128.55289"
-     inkscape:cy="157.07145"
+     inkscape:zoom="1.6116502"
+     inkscape:cx="440.85249"
+     inkscape:cy="91.831342"
      inkscape:window-width="1920"
      inkscape:window-height="997"
      inkscape:window-x="0"
@@ -8106,7 +8144,7 @@
        y="0"
        inkscape:label="1"
        id="page1"
-       width="353.57675"
+       width="462.84317"
        height="240.64578"
        margin="0"
        bleed="0" />
@@ -8115,7 +8153,7 @@
      id="g1"
      inkscape:groupmode="layer"
      inkscape:label="1"
-     transform="translate(-3.5166926,-39.626849)">
+     transform="translate(-3.5166926,-39.626848)">
     <path
        id="path2"
        d="M 61.537498,234.9085 H 354.61491 V 40.160183 H 61.537498 Z"
@@ -14264,5 +14302,37 @@
        id="path1637"
        d="M 61.537498,40.160183 H 354.61491"
        style="fill:none;stroke:#000000;stroke-width:1.06667;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle)"
+       d="m 341.60856,54.211959 -0.2394,51.336531"
+       id="path1"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle-7)"
+       d="m 271.80193,53.528696 51.33653,0.2394"
+       id="path1-6"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#0000ff;stroke:none;stroke-width:3"
+       x="360.64127"
+       y="69.068565"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="360.64127"
+         y="69.068565"
+         style="font-weight:normal;font-size:21.3333px;fill:#0000ff;stroke:none">Slowdown</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:21.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke:none;stroke-width:3"
+       x="183.60605"
+       y="58.823784"
+       id="text1-7"><tspan
+         sodipodi:role="line"
+         id="tspan1-0"
+         x="183.60605"
+         y="58.823784"
+         style="font-weight:normal;font-size:21.3333px;fill:#000000;stroke:none">Large d</tspan></text>
   </g>
 </svg>
