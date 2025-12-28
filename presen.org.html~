@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-12-28 Sun 08:21 -->
+<!-- 2025-12-28 Sun 08:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Bilevel MCTS for Amortized O(1) Node Selection in Classical Planning</title>
@@ -780,7 +780,7 @@
 \]
 </p>
 
-<div class="outline-text-1" id="org65f0a4e">
+<div class="outline-text-1" id="org46f2638">
 <div class="org-center">
 <p>
 <b>Masataro Asai</b>
@@ -799,7 +799,7 @@ Use arrow keys (←→) or n/p keys
 </p>
 </div>
 
-<div class="note" id="org918d287">
+<div class="note" id="org3c019f1">
 <p>
 If you found the pdf version of this document, you can find the orignal web presentation in <a href="https://asai-research-presentation.github.io/2026-aaai26-O1MCTS/">https://asai-research-presentation.github.io/2026-aaai26-O1MCTS/</a>
 </p>
@@ -807,8 +807,8 @@ If you found the pdf version of this document, you can find the orignal web pres
 </div>
 
 </div>
-<div id="outline-container-orgaabac8d" class="outline-2">
-<h2 id="orgaabac8d"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-orge330b29" class="outline-2">
+<h2 id="orge330b29"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li><b>Common Weakness of Monte-Carlo Tree Search</b></li>
@@ -818,72 +818,72 @@ If you found the pdf version of this document, you can find the orignal web pres
 </ul>
 </div>
 </div>
-<div id="outline-container-org0f0e00b" class="outline-2">
-<h2 id="org0f0e00b"><span class="section-number-2">2.</span> Monte Carlo Tree Search</h2>
+<div id="outline-container-org2bb3e31" class="outline-2">
+<h2 id="org2bb3e31"><span class="section-number-2">2.</span> Monte Carlo Tree Search</h2>
 <div class="outline-text-2" id="text-2">
 
-<div id="orgab6389b" class="figure">
+<div id="org8acaf0a" class="figure">
 <p><img src="img/bilevel/7.png" alt="7.png" />
 </p>
 </div>
 </div>
-<div id="outline-container-orgb793b2e" class="outline-3">
-<h3 id="orgb793b2e"><span class="section-number-3">2.1.</span> Monte Carlo Tree Search</h3>
+<div id="outline-container-org4983a26" class="outline-3">
+<h3 id="org4983a26"><span class="section-number-3">2.1.</span> Monte Carlo Tree Search</h3>
 <div class="outline-text-3" id="text-2-1">
 
-<div id="org1aaa008" class="figure">
+<div id="orge630501" class="figure">
 <p><img src="img/bilevel/6.png" alt="6.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org6015d8a" class="outline-3">
-<h3 id="org6015d8a"><span class="section-number-3">2.2.</span> Monte Carlo Tree Search</h3>
+<div id="outline-container-org7513359" class="outline-3">
+<h3 id="org7513359"><span class="section-number-3">2.2.</span> Monte Carlo Tree Search</h3>
 <div class="outline-text-3" id="text-2-2">
 
-<div id="org9b467bc" class="figure">
+<div id="orgba28a74" class="figure">
 <p><img src="img/bilevel/5.png" alt="5.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgef1a1b5" class="outline-3">
-<h3 id="orgef1a1b5"><span class="section-number-3">2.3.</span> Monte Carlo Tree Search</h3>
+<div id="outline-container-org7afe3f3" class="outline-3">
+<h3 id="org7afe3f3"><span class="section-number-3">2.3.</span> Monte Carlo Tree Search</h3>
 <div class="outline-text-3" id="text-2-3">
 
-<div id="org0fe8c2d" class="figure">
+<div id="org6fe4909" class="figure">
 <p><img src="img/bilevel/5b.png" alt="5b.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgce9a6a4" class="outline-3">
-<h3 id="orgce9a6a4"><span class="section-number-3">2.4.</span> Monte Carlo Tree Search</h3>
+<div id="outline-container-org0f8a0c0" class="outline-3">
+<h3 id="org0f8a0c0"><span class="section-number-3">2.4.</span> Monte Carlo Tree Search</h3>
 <div class="outline-text-3" id="text-2-4">
 
-<div id="orgbfc07f0" class="figure">
+<div id="org291e168" class="figure">
 <p><img src="img/bilevel/4.png" alt="4.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org4d5f479" class="outline-3">
-<h3 id="org4d5f479"><span class="section-number-3">2.5.</span> Monte Carlo Tree Search</h3>
+<div id="outline-container-orgc8e1e88" class="outline-3">
+<h3 id="orgc8e1e88"><span class="section-number-3">2.5.</span> Monte Carlo Tree Search</h3>
 <div class="outline-text-3" id="text-2-5">
 
-<div id="orgbd50c6e" class="figure">
+<div id="orgc07b7aa" class="figure">
 <p><img src="img/bilevel/4b.png" alt="4b.png" />
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org5d7efbe" class="outline-2">
-<h2 id="org5d7efbe"><span class="section-number-2">3.</span> <span class="underline"><i>Weakness</i></span> : needs a <b><i>shallow search space</i></b></h2>
+<div id="outline-container-org0189d5d" class="outline-2">
+<h2 id="org0189d5d"><span class="section-number-2">3.</span> <span class="underline"><i>Weakness</i></span> : needs a <b><i>shallow search space</i></b></h2>
 <div class="outline-text-2" id="text-3">
-<div class="container-fluid" id="org2848e52">
-<div class="row-fluid" id="org52f7b66">
-<div class="span6" id="orge726827">
+<div class="container-fluid" id="org033c6b0">
+<div class="row-fluid" id="org7fbc5d3">
+<div class="span6" id="org3ba5ca0">
 <p>
 
 </p>
@@ -896,7 +896,7 @@ Game of Go
 </div>
 
 
-<div id="org987bc32" class="figure">
+<div id="org0dc4080" class="figure">
 <p><img src="img/Blank_Go_board.png" alt="Blank_Go_board.png" />
 </p>
 </div>
@@ -907,7 +907,7 @@ Depth $d &lt; 19^2=391$
 </ul>
 
 </div>
-<div class="span6" id="org53a261c">
+<div class="span6" id="org4ced227">
 <p>
 
 </p>
@@ -920,7 +920,7 @@ Tower of Hanoi
 </div>
 
 
-<div id="org7cba53d" class="figure">
+<div id="org23092f8" class="figure">
 <p><img src="img/Tower_of_Hanoi.png" alt="Tower_of_Hanoi.png" />
 </p>
 </div>
@@ -946,100 +946,100 @@ an <i>exponential</i> depth!</b>
 </div>
 </div>
 </div>
-<div id="outline-container-org0859674" class="outline-2">
-<h2 id="org0859674"><span class="section-number-2">4.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h2>
+<div id="outline-container-org405bbea" class="outline-2">
+<h2 id="org405bbea"><span class="section-number-2">4.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h2>
 <div class="outline-text-2" id="text-4">
 
-<div id="org9a16e3a" class="figure">
+<div id="orgbbf44bf" class="figure">
 <p><img src="img/bilevel/4b.png" alt="4b.png" />
 </p>
 </div>
 </div>
-<div id="outline-container-org59378df" class="outline-3">
-<h3 id="org59378df"><span class="section-number-3">4.1.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h3>
+<div id="outline-container-org8c935ce" class="outline-3">
+<h3 id="org8c935ce"><span class="section-number-3">4.1.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h3>
 <div class="outline-text-3" id="text-4-1">
 
-<div id="orga06afbc" class="figure">
+<div id="org6daa3aa" class="figure">
 <p><img src="img/bilevel/3.png" alt="3.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf707e09" class="outline-3">
-<h3 id="orgf707e09"><span class="section-number-3">4.2.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h3>
+<div id="outline-container-org8684318" class="outline-3">
+<h3 id="org8684318"><span class="section-number-3">4.2.</span> <span class="underline"><i>Weakness</i></span> : Larger $d$ → Slower MCTS</h3>
 <div class="outline-text-3" id="text-4-2">
 
-<div id="orgedd017a" class="figure">
+<div id="orgd92178a" class="figure">
 <p><img src="img/bilevel/2.png" alt="2.png" />
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org3550907" class="outline-2">
-<h2 id="org3550907"><span class="section-number-2">5.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h2>
+<div id="outline-container-orgf351b4e" class="outline-2">
+<h2 id="orgf351b4e"><span class="section-number-2">5.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h2>
 <div class="outline-text-2" id="text-5">
 
-<div id="orgc027b1d" class="figure">
+<div id="org50d8906" class="figure">
 <p><img src="img/bilevel/2.png" alt="2.png" />
 </p>
 </div>
 </div>
-<div id="outline-container-org50e7475" class="outline-3">
-<h3 id="org50e7475"><span class="section-number-3">5.1.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h3>
+<div id="outline-container-org6699525" class="outline-3">
+<h3 id="org6699525"><span class="section-number-3">5.1.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h3>
 <div class="outline-text-3" id="text-5-1">
 
-<div id="orge0184e2" class="figure">
+<div id="org9408c74" class="figure">
 <p><img src="img/bilevel/1x.png" alt="1x.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf49fec2" class="outline-3">
-<h3 id="orgf49fec2"><span class="section-number-3">5.2.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h3>
+<div id="outline-container-orge0d65ce" class="outline-3">
+<h3 id="orge0d65ce"><span class="section-number-3">5.2.</span> Proposed: <span class="underline"><i>Bilevel MCTS</i></span></h3>
 <div class="outline-text-3" id="text-5-2">
 
-<div id="orgfaa8993" class="figure">
+<div id="org17d5378" class="figure">
 <p><img src="img/bilevel/1.png" alt="1.png" />
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-orgfbf6afa" class="outline-2">
-<h2 id="orgfbf6afa"><span class="section-number-2">6.</span> Theoretical Results</h2>
+<div id="outline-container-org5d9aada" class="outline-2">
+<h2 id="org5d9aada"><span class="section-number-2">6.</span> Theoretical Results</h2>
 <div class="outline-text-2" id="text-6">
 
-<div id="org5b6de4c" class="figure">
+<div id="org4986b61" class="figure">
 <p><img src="img/bilevel/1d.png" alt="1d.png" />
 </p>
 </div>
 </div>
-<div id="outline-container-org26c70b3" class="outline-3">
-<h3 id="org26c70b3"><span class="section-number-3">6.1.</span> Theoretical Results</h3>
+<div id="outline-container-org785ea3e" class="outline-3">
+<h3 id="org785ea3e"><span class="section-number-3">6.1.</span> Theoretical Results</h3>
 <div class="outline-text-3" id="text-6-1">
 
-<div id="org87d0a33" class="figure">
+<div id="org955b980" class="figure">
 <p><img src="img/bilevel/1c.png" alt="1c.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org74888cd" class="outline-3">
-<h3 id="org74888cd"><span class="section-number-3">6.2.</span> Theoretical Results</h3>
+<div id="outline-container-org44db317" class="outline-3">
+<h3 id="org44db317"><span class="section-number-3">6.2.</span> Theoretical Results</h3>
 <div class="outline-text-3" id="text-6-2">
 
-<div id="orgad9772e" class="figure">
+<div id="org3a3c875" class="figure">
 <p><img src="img/bilevel/1b.png" alt="1b.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org0257982" class="outline-3">
-<h3 id="org0257982"><span class="section-number-3">6.3.</span> Theoretical Results</h3>
+<div id="outline-container-org99ea0bc" class="outline-3">
+<h3 id="org99ea0bc"><span class="section-number-3">6.3.</span> Theoretical Results</h3>
 <div class="outline-text-3" id="text-6-3">
 
-<div id="org3a02877" class="figure">
+<div id="org4f1fc6d" class="figure">
 <p><img src="img/bilevel/1b.png" alt="1b.png" />
 </p>
 </div>
@@ -1058,13 +1058,13 @@ $O(1)$ if <span class="underline">$Q$ = array-based priority queue</span> (Dial 
 </div>
 </div>
 </div>
-<div id="outline-container-org277267c" class="outline-2">
-<h2 id="org277267c"><span class="section-number-2">7.</span> Evaluation on IPC 2018+2023</h2>
+<div id="outline-container-orgc225a63" class="outline-2">
+<h2 id="orgc225a63"><span class="section-number-2">7.</span> Evaluation on IPC 2018+2023</h2>
 <div class="outline-text-2" id="text-7">
-<div class="smaller" id="orgffb6383">
-<div class="container-fluid" id="orgbce8fef">
-<div class="row-fluid" id="org6619a8d">
-<div class="span6" id="org62184d4">
+<div class="smaller" id="org3d5c9bf">
+<div class="container-fluid" id="orgf0b341e">
+<div class="row-fluid" id="org8798386">
+<div class="span6" id="orgd856c39">
 <ul class="org-ul">
 <li><div class="org-center">
 <p>
@@ -1162,7 +1162,7 @@ Instances solved in 5 min
 
 </div>
 
-<div class="span6" id="org1cf22ce">
+<div class="span6" id="orgf61f056">
 <ul class="org-ul">
 <li><div class="org-center">
 <p>
@@ -1271,12 +1271,12 @@ Softmin: Softmin-type-h (Kuroiwa and Beck 2022)
 </p>
 </div>
 </div>
-<div id="outline-container-org9c0f5e4" class="outline-2">
-<h2 id="org9c0f5e4"><span class="section-number-2">8.</span> Expansion Speed [Nodes / sec]</h2>
+<div id="outline-container-org36c367e" class="outline-2">
+<h2 id="org36c367e"><span class="section-number-2">8.</span> Expansion Speed [Nodes / sec]</h2>
 <div class="outline-text-2" id="text-8">
-<div class="row-fluid" id="org269004d">
-<div class="container-fluid" id="org4f2e537">
-<div class="span6" id="org4760e76">
+<div class="row-fluid" id="org782df9a">
+<div class="container-fluid" id="org174ebf8">
+<div class="span6" id="org8804029">
 <p>
 
 </p>
@@ -1292,7 +1292,7 @@ MCTS
 </ul>
 
 </div>
-<div class="span6" id="org4c44f2e">
+<div class="span6" id="org0956010">
 <p>
 
 </p>
@@ -1314,28 +1314,28 @@ Bilevel MCTS
 </div>
 </div>
 </div>
-<div id="outline-container-org7fd1caf" class="outline-2">
-<h2 id="org7fd1caf"><span class="section-number-2">9.</span> Bilevel MCTS uses a <b><i>Dynamic Depth Budget</i></b></h2>
+<div id="outline-container-org706cfd7" class="outline-2">
+<h2 id="org706cfd7"><span class="section-number-2">9.</span> Bilevel MCTS uses a <b><i>Dynamic Depth Budget</i></b></h2>
 <div class="outline-text-2" id="text-9">
 
-<div id="org97a7cd0" class="figure">
+<div id="org3282e36" class="figure">
 <p><img src="img/budget/2.png" alt="2.png" />
 </p>
 </div>
 </div>
-<div id="outline-container-org84ee4c0" class="outline-3">
-<h3 id="org84ee4c0"><span class="section-number-3">9.1.</span> Bilevel MCTS uses a <b><i>Dynamic Depth Budget</i></b></h3>
+<div id="outline-container-org1919780" class="outline-3">
+<h3 id="org1919780"><span class="section-number-3">9.1.</span> Bilevel MCTS uses a <b><i>Dynamic Depth Budget</i></b></h3>
 <div class="outline-text-3" id="text-9-1">
 
-<div id="org7281ee4" class="figure">
+<div id="org7bfe63c" class="figure">
 <p><img src="img/budget/1.png" alt="1.png" />
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org871e728" class="outline-2">
-<h2 id="org871e728"><span class="section-number-2">10.</span> <b>Depth Budget</b> $b=d$ vs. <b>Fixed Budget</b> $b=10^k$</h2>
+<div id="outline-container-orgceaea1c" class="outline-2">
+<h2 id="orgceaea1c"><span class="section-number-2">10.</span> <b>Depth Budget</b> $b=d$ vs. <b>Fixed Budget</b> $b=10^k$</h2>
 <div class="outline-text-2" id="text-10">
 <div class="org-center">
 <p>
@@ -1456,21 +1456,21 @@ Instances solved in 5 min (highlighted top-2)
 </dl>
 </div>
 </div>
-<div id="outline-container-org66245b6" class="outline-2">
-<h2 id="org66245b6"><span class="section-number-2">11.</span> Additional improvement: Tree Collapsing</h2>
+<div id="outline-container-orgfa9008c" class="outline-2">
+<h2 id="orgfa9008c"><span class="section-number-2">11.</span> Additional improvement: Tree Collapsing</h2>
 <div class="outline-text-2" id="text-11">
 <p>
 If a large $d$ slows down MCTS, <span class="underline"><i>what if we reduce $d$?</i></span>
 </p>
 
 
-<div id="org6368800" class="figure">
+<div id="org540fdb5" class="figure">
 <p><img src="img/bilevel/2.png" alt="2.png" />
 </p>
 </div>
 </div>
-<div id="outline-container-org6ed2656" class="outline-3">
-<h3 id="org6ed2656"><span class="section-number-3">11.1.</span> Additional improvement: Tree Collapsing</h3>
+<div id="outline-container-org13fc3d2" class="outline-3">
+<h3 id="org13fc3d2"><span class="section-number-3">11.1.</span> Additional improvement: Tree Collapsing</h3>
 <div class="outline-text-3" id="text-11-1">
 <p>
 Hyperparameter: $\theta$
@@ -1481,7 +1481,7 @@ Hyperparameter: $\theta$
 </p>
 
 
-<div id="orgdb06e01" class="figure">
+<div id="orgd031bbc" class="figure">
 <p><img src="img/collapsing1.png" alt="collapsing1.png" />
 </p>
 </div>
@@ -1491,8 +1491,8 @@ Hyperparameter: $\theta$
 </p>
 </div>
 </div>
-<div id="outline-container-org5acc3c6" class="outline-3">
-<h3 id="org5acc3c6"><span class="section-number-3">11.2.</span> Additional improvement: Tree Collapsing</h3>
+<div id="outline-container-org6c21c80" class="outline-3">
+<h3 id="org6c21c80"><span class="section-number-3">11.2.</span> Additional improvement: Tree Collapsing</h3>
 <div class="outline-text-3" id="text-11-2">
 <p>
 Hyperparameter: $\theta$
@@ -1503,7 +1503,7 @@ Hyperparameter: $\theta$
 </p>
 
 
-<div id="org43208fb" class="figure">
+<div id="orgbd8bf6d" class="figure">
 <p><img src="img/collapsing.png" alt="collapsing.png" />
 </p>
 </div>
@@ -1513,8 +1513,8 @@ Hyperparameter: $\theta$
 </p>
 </div>
 </div>
-<div id="outline-container-org9f94d00" class="outline-3">
-<h3 id="org9f94d00"><span class="section-number-3">11.3.</span> Additional improvement: Tree Collapsing</h3>
+<div id="outline-container-org59912db" class="outline-3">
+<h3 id="org59912db"><span class="section-number-3">11.3.</span> Additional improvement: Tree Collapsing</h3>
 <div class="outline-text-3" id="text-11-3">
 <p>
 Hyperparameter: $\theta$
@@ -1525,7 +1525,7 @@ Hyperparameter: $\theta$
 </p>
 
 
-<div id="org7b24e92" class="figure">
+<div id="orgc7cda33" class="figure">
 <p><img src="img/collapsing.png" alt="collapsing.png" />
 </p>
 </div>
@@ -1535,8 +1535,8 @@ Hyperparameter: $\theta$
 </p>
 </div>
 </div>
-<div id="outline-container-org38300cd" class="outline-3">
-<h3 id="org38300cd"><span class="section-number-3">11.4.</span> Additional improvement: Tree Collapsing</h3>
+<div id="outline-container-orgfedcbb5" class="outline-3">
+<h3 id="orgfedcbb5"><span class="section-number-3">11.4.</span> Additional improvement: Tree Collapsing</h3>
 <div class="outline-text-3" id="text-11-4">
 <div class="org-center">
 <p>
@@ -1667,8 +1667,8 @@ Number of instances solved (5 min)
 </div>
 </div>
 </div>
-<div id="outline-container-org3fcb5d1" class="outline-2">
-<h2 id="org3fcb5d1"><span class="section-number-2">12.</span> N$&epsilon;$bula = Bilevel MCTS + BFWS + LAMA</h2>
+<div id="outline-container-org25496c0" class="outline-2">
+<h2 id="org25496c0"><span class="section-number-2">12.</span> N$&epsilon;$bula = Bilevel MCTS + BFWS + LAMA</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 N$&epsilon;$bula : 3 best practices in a single planner
@@ -1681,8 +1681,8 @@ N$&epsilon;$bula : 3 best practices in a single planner
 <li><b>State-based Exploration</b> : Prioritize states with Novelty Metric (2017)</li>
 </ul>
 </div>
-<div id="outline-container-org2a8fd04" class="outline-3">
-<h3 id="org2a8fd04"><span class="section-number-3">12.1.</span> Results</h3>
+<div id="outline-container-org0f57f9a" class="outline-3">
+<h3 id="org0f57f9a"><span class="section-number-3">12.1.</span> Results</h3>
 <div class="outline-text-3" id="text-12-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1766,19 +1766,19 @@ N$&epsilon;$bula : 3 best practices in a single planner
 </p>
 </div>
 </div>
-<div id="outline-container-org367aef8" class="outline-3">
-<h3 id="org367aef8"><span class="section-number-3">12.2.</span> Runtime Histogram</h3>
+<div id="outline-container-orgf8a8953" class="outline-3">
+<h3 id="orgf8a8953"><span class="section-number-3">12.2.</span> Runtime Histogram</h3>
 <div class="outline-text-3" id="text-12-2">
 
-<div id="org5887116" class="figure">
+<div id="org4bbff75" class="figure">
 <p><img src="img/ucb1normal2nlapsb3-0.5-depth--1--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic.png" alt="ucb1normal2nlapsb3-0.5-depth--1--1-1.0-false-false-hff-false-False-false-10-disabled-False-fixed0.0-deterministic.png" />
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-orgefd355c" class="outline-2">
-<h2 id="orgefd355c"><span class="section-number-2">13.</span> Conclusion</h2>
+<div id="outline-container-org95a8dae" class="outline-2">
+<h2 id="org95a8dae"><span class="section-number-2">13.</span> Conclusion</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 Recursive selection is a bottleneck in MCTS (causes $O(\log N)$)
@@ -1800,7 +1800,7 @@ Recursive selection is a bottleneck in MCTS (causes $O(\log N)$)
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Masataro Asai</p>
-<p class="date">Created: 2025-12-28 Sun 08:21</p>
+<p class="date">Created: 2025-12-28 Sun 08:25</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
