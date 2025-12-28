@@ -403,7 +403,7 @@ N$\epsilon$bula : 3 best practices in a single planner
 
 * Conclusion
 
-Recursive selections is a bottleneck in MCTS (causes $O(\log N)$)
+Recursive selection is a bottleneck in MCTS (causes $O(\log N)$)
 + → Large depth $d$ hurts
 + → Bilevel MCTS: Amortize the bottleneck with a *budgeted BFS*
 
