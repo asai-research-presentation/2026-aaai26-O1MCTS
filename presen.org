@@ -97,7 +97,7 @@ If you found the pdf version of this document, you can find the orignal web pres
 
 [[png:bilevel/4b]]
 
-** _/Weakness/_ : Larger $d$ → Slower MCTS
+** _/Weakness/_ : Larger $d$ → Slower MCTS                        :noexport:
 
 [[png:bilevel/3]]
 
